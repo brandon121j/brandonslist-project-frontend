@@ -6,7 +6,7 @@ import PasswordHooks from '../../hooks/PasswordHooks';
 import EmailHooks from '../../hooks/EmailHooks';
 
 function Signup() {
-    const [firstName, handleFirstNameOnChange, firstNameError,setFirstNameOnFocus, setFirstNameOnBlur] = FirstNameHooks();
+    const [firstName, handleFirstNameOnChange, firstNameError, setFirstNameOnBlur] = FirstNameHooks();
     const [lastName, handleLastNameOnChange, lastNameError, setLastNameOnBlur] = LastNameHooks()
 
     return (
