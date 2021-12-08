@@ -9,21 +9,20 @@ function FirstNameHooks() {
 
     useEffect(() => {
         if (onFocus) {
-			if (firstName.length > 0) {
-				if (!isAlpha(firstName)) {
-					setError('Cannot have special character or number');
-				}
+            if (firstName.length > 0) {
+                if (!isAlpha(firstName)) {
+                    setError("cannot have special character or #")
+                }
 
                 if(isAlpha(firstName)){
                     setError("")
                 }
-			}
-		}
-
+            }
+        }
         if (onBlur) {
             if (firstName.length === 0) {
-                setError('First name cannot be empty')
-            } else {setError('')}
+                setError("First name cannot be empty")
+            }
         }
 
 	}, [firstName, onFocus, onBlur]);

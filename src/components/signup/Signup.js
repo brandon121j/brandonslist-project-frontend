@@ -6,17 +6,17 @@ import PasswordHooks from '../../hooks/PasswordHooks';
 import EmailHooks from '../../hooks/EmailHooks';
 
 function Signup() {
-    const [firstName, handleFirstNameOnChange, firstNameError, setFirstNameOnBlur] = FirstNameHooks();
-
+    const [firstName, handleFirstNameOnChange, firstNameError,setFirstNameOnFocus, setFirstNameOnBlur] = FirstNameHooks();
+    const [lastName, handleLastNameOnChange, lastNameError, setLastNameOnBlur] = LastNameHooks()
 
     return (
         <div className='signup'>
             <form>
-                <label>First Name</label>
+                <label htmlFor="firstName">First Name</label>
                 <input 
                     type="text" 
                     onChange={handleFirstNameOnChange}
-                    id="firstName"
+                    id={firstName}
                     onBlur={setFirstNameOnBlur}
                     />
                     {firstNameError && (
@@ -25,7 +25,19 @@ function Signup() {
 							</div>
 						)}
                 <label>Last Name</label>
-                <input type="text" />
+                <input
+							type="text"
+							className="form-control"
+							id={lastName}
+							placeholder="last name"
+							onChange={handleLastNameOnChange}
+							onBlur={setLastNameOnBlur}
+						/>
+                        {lastNameError && (
+							<div className="alert alert-danger" role="alert">
+								{lastNameError}{' '}
+							</div>
+						)}
                 <label>Email</label>
                 <input type="text" />
                 <label>Password</label>

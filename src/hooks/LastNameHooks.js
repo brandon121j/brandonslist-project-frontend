@@ -5,17 +5,16 @@ function LastNameHooks() {
     const [lastName, setLastName] = useState('');
     const [error, setError] = useState('');
     const [onBlur, setOnBlur] = useState(false);
-
+    
     useEffect(() => {
         if (onBlur) {
             if (lastName.length === 0) {
-                setError('First name cannot be empty')
-            } else {setError('')}
-
-            if (!isAlpha(lastName)) {
+                setError('Last name cannot be empty')
+            } else if (!isAlpha(lastName)) {
                 setError('Cannot have special characters or numbers')
-                console.log('!!!WORKING!!!')
-            } else {setError('')}
+            } else {
+                setError('')
+            }
         }
     }, [lastName, onBlur])
 
