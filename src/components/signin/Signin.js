@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 import axios from "axios";
 
 
-import EmailHooks from '../../hooks/EmailHooks';
-import PasswordHooks from '../../hooks/PasswordHooks';
+import SigninHooks from '../../hooks/SigninHooks';
 
-export default function Signin() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+function Signin() {
+	const [password, email, handlePasswordOnChange, handleEmailOnChange, emailError, passwordError, setOnPasswordBlur, setOnEmailBlur] = SigninHooks();
+
 
     const notifySuccess = () => toast.success('User successfully signed in!', {
         position: "top-center",
@@ -41,10 +40,11 @@ export default function Signin() {
 						<input
 							type="text"
 							className="form-control"
-							id="email"
+							id={email}
 							placeholder="name@example.com"
 							name="email"
-							onChange={(e) => setEmail(e.target.value)}
+                            onBlur={setOnEmailBlur}
+							onChange={handleEmailOnChange}
 						/>
 					</div>
 					<div class="m-3">
@@ -52,10 +52,11 @@ export default function Signin() {
 						<input
 							type="text"
 							className="form-control"
-							id="password"
+							id={password}
 							placeholder="Password"
 							name="password"
-							onChange={(e) => setPassword(e.target.value)}
+                            onBlur={setOnPasswordBlur}
+							onChange={handlePasswordOnChange}
 						/>
 					</div>
 					<button type="button" class="btn btn-outline-primary m-3 p-3 w-25">
@@ -69,3 +70,5 @@ export default function Signin() {
 		</div>
 	);
 }
+
+export default Signin;

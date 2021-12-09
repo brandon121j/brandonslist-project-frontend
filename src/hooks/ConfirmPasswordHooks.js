@@ -13,8 +13,6 @@ const ConfirmPasswordHooks = () => {
         if (onBlur) {
             if (confirmPassword !== password) {
                 setError('Passwords must match');
-                console.log('!!! Passwords must match !!!');
-                console.log('PASSWORD: ', password)
             } else {
                 setError('');
             }

@@ -6,7 +6,6 @@ import LastNameHooks from '../../hooks/LastNameHooks';
 import PasswordHooks from '../../hooks/PasswordHooks';
 import EmailHooks from '../../hooks/EmailHooks';
 import PasswordStrength from '../passwordStrength/PasswordStrength';
-import ConfirmPasswordHooks from '../../hooks/ConfirmPasswordHooks';
 import '../../App.css';
 
 function Signup() {
