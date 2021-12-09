@@ -1,9 +1,35 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from "react-toastify";
+import axios from "axios";
+
+
+import EmailHooks from '../../hooks/EmailHooks';
+import PasswordHooks from '../../hooks/PasswordHooks';
 
 export default function Signin() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+    const notifySuccess = () => toast.success('User successfully signed in!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+
+    const notifyFailed = (input) => toast.error(`${input}`, {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
 
 	return (
 		<div class='d-flex justify-content-center text-center rounded m-5'>

@@ -6,8 +6,9 @@ const ConfirmPasswordHooks = () => {
     const [error, setError] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [onBlur, setOnBlur] = useState(false);
+
     const {password} = PasswordHooks()
-    
+
     useEffect(() => {
         if (onBlur) {
             if (confirmPassword !== password) {

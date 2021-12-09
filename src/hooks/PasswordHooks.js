@@ -3,8 +3,10 @@ import zxcvbn from 'zxcvbn';
 
 function PasswordHooks() {
 	const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
 	const [error, setError] = useState('');
-	const [onFocus, setOnFocus] = useState(false);
+    const [confirmError, setConfirmError] = useState('');
+    const [confirmBlur, setConfirmBlur] = useState(false);
 	const [onBlur, setOnBlur] = useState(false);
     const passwordTester = zxcvbn(password);
 
@@ -16,16 +18,31 @@ function PasswordHooks() {
                 setError('Password too weak');
                 console.log('TOO WEAK');
             } else {
-                setError('');
+                setError('')
             }
         }
-    }, [password, onBlur])
+
+        if (confirmBlur) {
+            if (confirm.length === 0) {
+                setConfirmError('Confirm password cannot be empty')
+            } else if (confirm !== password) {
+                console.log('Confirm: ', confirm,'Password: ', password)
+                setConfirmError('Passwords must match')
+            } else {
+                setConfirmError('')
+            }
+        }
+    }, [password, confirm, onBlur, confirmBlur])
 
 	function handlePasswordOnChange(e) {
 		setPassword(e.target.value);
 	}
 
-	return [password, handlePasswordOnChange, error, setOnBlur];
+    function handleConfirmOnChange(e) {
+        setConfirm(e.target.value);
+    }
+
+	return [password, handlePasswordOnChange, error, setOnBlur, setConfirmBlur, confirmError, handleConfirmOnChange];
 }
 
 export default PasswordHooks;

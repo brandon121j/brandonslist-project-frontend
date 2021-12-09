@@ -7,6 +7,7 @@ import PasswordHooks from '../../hooks/PasswordHooks';
 import EmailHooks from '../../hooks/EmailHooks';
 import PasswordStrength from '../passwordStrength/PasswordStrength';
 import ConfirmPasswordHooks from '../../hooks/ConfirmPasswordHooks';
+import '../../App.css';
 
 function Signup() {
 	const [
@@ -18,17 +19,15 @@ function Signup() {
 	const [lastName, handleLastNameOnChange, lastNameError, setLastNameOnBlur] =
 		LastNameHooks();
 	const [email, handleEmailOnChange, emailError, setEmailOnBlur] = EmailHooks();
-	const [password, handlePasswordOnChange, passwordError, setPasswordOnBlur] =
+	const [password, handlePasswordOnChange, passwordError, setPasswordOnBlur, setConfirmOnBlur, confirmError, handleConfirmOnChange] =
 		PasswordHooks();
-	const [confirm, handleConfirmOnChange, confirmError, setConfirmOnBlur] =
-		ConfirmPasswordHooks();
 
 	return (
-		<div class="d-flex justify-content-center text-center rounded m-5">
-			<div class="card w-25">
+		<div className="d-flex justify-content-center text-center rounded m-5">
+			<div className="card w-25">
 				<form class="form-group card-body">
 					<h2>Sign up</h2>
-					<div class="m-3">
+					<div className="m-3">
 						<label class="m-1">First Name</label>
 						<input
 							type="text"
@@ -36,7 +35,7 @@ function Signup() {
 							id={firstName}
 							onBlur={setFirstNameOnBlur}
 							placeholder="First name"
-							class="form-control"
+							className={`${!firstNameError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						{firstNameError && (
 							<div className="alert alert-danger h-1" role="alert">
@@ -44,15 +43,15 @@ function Signup() {
 							</div>
 						)}
 					</div>
-					<div class="m-3">
-						<label class="m-1">Last Name</label>
+					<div className="m-3">
+						<label className="m-1">Last Name</label>
 						<input
 							type="text"
 							onChange={handleLastNameOnChange}
 							id={lastName}
 							onBlur={setLastNameOnBlur}
 							placeholder="last name"
-							class="form-control"
+							className={`${!lastNameError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						{lastNameError && (
 							<div className="alert alert-danger" role="alert">
@@ -60,15 +59,15 @@ function Signup() {
 							</div>
 						)}
 					</div>
-					<div class="m-3">
-						<label class="m-1">Email</label>
+					<div className="m-3">
+						<label className="m-1">Email</label>
 						<input
 							type="text"
 							onChange={handleEmailOnChange}
 							id={email}
 							onBlur={setEmailOnBlur}
 							placeholder="Email"
-							class="form-control"
+							className={`${!emailError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						{emailError && (
 							<div className="alert alert-danger" role="alert">
@@ -76,14 +75,14 @@ function Signup() {
 							</div>
 						)}
 					</div>
-					<div class="m-3">
-						<label class="m-1">Password</label>
+					<div className="m-3">
+						<label className="m-1">Password</label>
 						<input
 							type="password"
 							placeholder="Password"
-							class="form-control"
 							onChange={handlePasswordOnChange}
 							onBlur={setPasswordOnBlur}
+							className={`${!passwordError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						<PasswordStrength password={password} />
 						{passwordError && (
@@ -92,20 +91,25 @@ function Signup() {
 							</div>
 						)}
 					</div>
-					<div class="m-3">
-						<label class="m-1">Confirm Password</label>
+					<div className="m-3">
+						<label className="m-1">Confirm Password</label>
 						<input
 							type="password"
 							placeholder="Confirm password"
-							class="form-control"
+							className={`${!confirmError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 							onChange={handleConfirmOnChange}
 							onBlur={setConfirmOnBlur}
 						/>
+						{confirmError && (
+							<div className="alert alert-danger" role="alert">
+								{confirmError}{' '}
+							</div>
+						)}
 					</div>
-					<button type="button" class="btn btn-outline-primary m-3 p-3 w-25">
+					<button type="button" className="btn btn-outline-success m-3 p-3 w-25">
 						Sign up
 					</button>
-					<div class='m-3'>
+					<div className='m-3'>
 						<Link to="/sign-in">Already have an account?</Link>
 					</div>
 				</form>
