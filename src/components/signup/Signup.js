@@ -37,7 +37,7 @@ function Signup() {
 							className={`${!firstNameError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						{firstNameError && (
-							<div className="alert alert-danger h-1" role="alert">
+							<div className="error text-danger p" role="alert">
 								{firstNameError}{' '}
 							</div>
 						)}
@@ -53,7 +53,7 @@ function Signup() {
 							className={`${!lastNameError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						{lastNameError && (
-							<div className="alert alert-danger" role="alert">
+							<div className="error text-danger p" role="alert">
 								{lastNameError}{' '}
 							</div>
 						)}
@@ -69,7 +69,7 @@ function Signup() {
 							className={`${!emailError ? 'form-control border border-success' : 'form-control border border-danger'}`}
 						/>
 						{emailError && (
-							<div className="alert alert-danger" role="alert">
+							<div className="error text-danger p" role="alert">
 								{emailError}{' '}
 							</div>
 						)}
@@ -85,7 +85,7 @@ function Signup() {
 						/>
 						<PasswordStrength password={password} />
 						{passwordError && (
-							<div className="alert alert-danger" role="alert">
+							<div className="error text-danger p" role="alert">
 								{passwordError}{' '}
 							</div>
 						)}
@@ -100,7 +100,7 @@ function Signup() {
 							onBlur={setConfirmOnBlur}
 						/>
 						{confirmError && (
-							<div className="alert alert-danger" role="alert">
+							<div className="error text-danger p" role="alert">
 								{confirmError}{' '}
 							</div>
 						)}

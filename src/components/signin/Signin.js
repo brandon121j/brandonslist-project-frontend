@@ -45,7 +45,15 @@ function Signin() {
 							name="email"
                             onBlur={setOnEmailBlur}
 							onChange={handleEmailOnChange}
+                            required='true'
+                            className={`${!emailError ? 'form-control border border-primary' : 'form-control border border-danger'}`}
+
 						/>
+                        {emailError && (
+							<div className="error text-danger p" role="alert">
+								{emailError}{' '}
+							</div>
+						)}
 					</div>
 					<div class="m-3">
 						<label class="m-1">Password</label>
@@ -57,7 +65,13 @@ function Signin() {
 							name="password"
                             onBlur={setOnPasswordBlur}
 							onChange={handlePasswordOnChange}
+                            className={`${!passwordError ? 'form-control border border-primary' : 'form-control border border-danger'}`}
 						/>
+                        {passwordError && (
+							<div className="error text-danger p" role="alert">
+								{passwordError}{' '}
+							</div>
+						)}
 					</div>
 					<button type="button" class="btn btn-outline-primary m-3 p-3 w-25">
 						Sign in
