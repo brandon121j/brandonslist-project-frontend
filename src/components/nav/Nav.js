@@ -2,26 +2,36 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 function Nav() {
-	function logout() {
-		
-	}
+	function logout() {}
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light">
+		<nav className="navbar navbar-expand-lg navbar-light bg-light p-3">
 			<Link className="navbar-brand" to="/">
-				Navbar
+				Brandon's List
 			</Link>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">
-							Home <span class="sr-only">(current)</span>
+			<div className="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul className="navbar-nav mr-auto mt-2 mt-md-0">
+					<li className="nav-item">
+						<a className="nav-link" href="#">
+							Create a Posting
 						</a>
 					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="#">
-							Link
+
+					<li className="nav-item">
+						<a className="nav-link" href="#">
+							Favorites
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div
+				className="collapse navbar-collapse d-flex justify-content-end"
+				id="navbarSupportedContent"
+			>
+				<ul className="navbar-nav mr-auto">
+					<li className="nav-item">
+						<a className="nav-link" href="#">
+							My account
 						</a>
 					</li>
 				</ul>
