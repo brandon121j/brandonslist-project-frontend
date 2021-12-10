@@ -14,7 +14,7 @@ function PasswordHooks() {
         if (onBlur) {
             if (password.length === 0) {
                 setError('Password cannot be empty')
-            } else if (passwordTester.score < 3) { 
+            } else if (passwordTester.score < 2) { 
                 setError('Password too weak');
                 console.log('TOO WEAK');
             } else {

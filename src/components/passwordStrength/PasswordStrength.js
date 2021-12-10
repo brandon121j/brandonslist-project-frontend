@@ -27,13 +27,13 @@ const PasswordStrength = ({ password }) => {
 			case 0:
 				return '#828282';
 			case 1:
-				return '#EA1111';
+				return '#FF0000';
 			case 2:
-				return '#FFAD00';
+				return '#61CE69';
 			case 3:
-				return '#9bc158';
+				return '#3DCE46';
 			case 4:
-				return '#00b500';
+				return '#00DF0F';
 			default:
 				return 'none';
 		}
