@@ -109,7 +109,7 @@ function Signup() {
 						Sign up
 					</button>
 					<div className='m-3'>
-						<Link to="/sign-in">Already have an account?</Link>
+						<Link to="/sign-in" className='text-success'>Already have an account?</Link>
 					</div>
 				</form>
 			</div>

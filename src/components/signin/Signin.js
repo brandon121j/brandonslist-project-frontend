@@ -41,7 +41,7 @@ function Signin() {
 							type="text"
 							className="form-control"
 							id={email}
-							placeholder="name@example.com"
+							placeholder="email@example.com"
 							name="email"
                             onBlur={setOnEmailBlur}
 							onChange={handleEmailOnChange}
