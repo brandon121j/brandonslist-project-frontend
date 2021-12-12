@@ -41,10 +41,10 @@ function Signin({ setUser }) {
 				email,
 				password,
 			});
+			console.log(payload);
+			window.localStorage.setItem("jwtToken", payload.data.token);
 
-			window.localStorage.setItem("jwtToken", payload.data.payload);
-
-			let decodedToken = jwtDecode(payload.data.payload);
+			let decodedToken = jwtDecode(payload.data.token);
 
 			dispatch({
 				type: "LOGIN",
