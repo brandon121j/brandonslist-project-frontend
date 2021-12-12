@@ -7,6 +7,9 @@ import jwtDecode from 'jwt-decode';
 import Signin from './components/signin/Signin';
 import Signup from './components/signup/Signup';
 import Nav from './components/nav/Nav';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+import Profile from './components/profile/Profile';
+import Home from './components/home/Home';
 
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
@@ -46,8 +49,16 @@ function App() {
       <Router>
         <Nav />
         <Routes>
+        <Route path="/profile" 
+            element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>}
+            />
+
           <Route path ='/sign-up' element={<Signup />} />
           <Route path='/sign-in' element={<Signin />} />
+          <Route path='/' element={<Home />} />
         </Routes>
       </Router>
 		</>

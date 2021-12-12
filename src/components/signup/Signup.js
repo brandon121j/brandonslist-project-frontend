@@ -33,6 +33,7 @@ function Signup() {
 	] = PasswordHooks();
 
 	const navigate = useNavigate();
+	
 	const { checkJwtToken } = CheckToken();
 	useEffect(() => {
 		if (checkJwtToken()) {
