@@ -47,10 +47,10 @@ function Signin({ setUser }) {
 			let decodedToken = jwtDecode(payload.data.payload);
 
 			dispatch({
-				type: "Login",
+				type: "LOGIN",
 				email: decodedToken.email,
-				firstName: decodedToken.firstName,
-				lastName: decodedToken.lastName
+				// firstName: decodedToken.firstName,
+				// lastName: decodedToken.lastName
 			})
 
 			toast.success('Login successful!', {
