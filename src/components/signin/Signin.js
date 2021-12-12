@@ -1,27 +1,57 @@
-import React from 'react';
+import { useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from "react-toastify";
-import axios from "axios";
+import { toast } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
-
+import { AuthContext } from '../../context/AuthContext';
+import CheckToken from '../../hooks/CheckToken';
 import SigninHooks from '../../hooks/SigninHooks';
 
-function Signin() {
-	const [password, email, handlePasswordOnChange, handleEmailOnChange, emailError, passwordError, setOnPasswordBlur, setOnEmailBlur] = SigninHooks();
+function Signin({ setUser }) {
+	const [
+		password,
+		email,
+		handlePasswordOnChange,
+		handleEmailOnChange,
+		emailError,
+		passwordError,
+		setOnPasswordBlur,
+		setOnEmailBlur,
+	] = SigninHooks();
+	const { dispatch } = useContext(AuthContext);
+	const { checkJwtToken } = CheckToken();
 	let navigate = useNavigate();
+
+	useEffect(() => {
+		if (checkJwtToken()) {
+			navigate('/');
+		}
+	}, []);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			let url = "http://localhost:3001/api/auth/users/login";
-				// process.env.NODE_ENV === 'production'
-				// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
-				// 	: 'http://localhost:3001/api/users/create-user';
+			let url = 'http://localhost:3001/api/auth/users/login';
+			// process.env.NODE_ENV === 'production'
+			// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
+			// 	: 'http://localhost:3001/api/users/create-user';
 
-			await axios.post(url, {
+			let payload = await axios.post(url, {
 				email,
 				password,
 			});
+
+			window.localStorage.setItem("jwtToken", payload.data.payload);
+
+			let decodedToken = jwtDecode(payload.data.payload);
+
+			dispatch({
+				type: "Login",
+				email: decodedToken.email,
+				firstName: decodedToken.firstName,
+				lastName: decodedToken.lastName
+			})
 
 			toast.success('Login successful!', {
 				position: 'top-center',
@@ -32,7 +62,7 @@ function Signin() {
 				draggable: true,
 				progress: undefined,
 			});
-			navigate('/')
+			navigate('/');
 		} catch (e) {
 			toast.error(e.response.data.error, {
 				position: 'top-center',
@@ -43,12 +73,12 @@ function Signin() {
 				draggable: true,
 				progress: undefined,
 			});
-			console.log(e.response.data)
+			console.log(e.response.data);
 		}
 	}
 
 	return (
-		<div class='d-flex justify-content-center text-center rounded m-5'>
+		<div class="d-flex justify-content-center text-center rounded m-5">
 			<div class="card w-25">
 				<form class="form-group card-body" onSubmit={handleSubmit}>
 					<h2>Sign in</h2>
@@ -60,13 +90,16 @@ function Signin() {
 							id={email}
 							placeholder="email@example.com"
 							name="email"
-                            onBlur={setOnEmailBlur}
+							onBlur={setOnEmailBlur}
 							onChange={handleEmailOnChange}
-                            required='true'
-                            className={`${!emailError ? 'form-control border border-primary' : 'form-control border border-danger'}`}
-
+							required="true"
+							className={`${
+								!emailError
+									? 'form-control border border-primary'
+									: 'form-control border border-danger'
+							}`}
 						/>
-                        {emailError && (
+						{emailError && (
 							<div className="error text-danger p" role="alert">
 								{emailError}{' '}
 							</div>
@@ -80,11 +113,15 @@ function Signin() {
 							id={password}
 							placeholder="Password"
 							name="password"
-                            onBlur={setOnPasswordBlur}
+							onBlur={setOnPasswordBlur}
 							onChange={handlePasswordOnChange}
-                            className={`${!passwordError ? 'form-control border border-primary' : 'form-control border border-danger'}`}
+							className={`${
+								!passwordError
+									? 'form-control border border-primary'
+									: 'form-control border border-danger'
+							}`}
 						/>
-                        {passwordError && (
+						{passwordError && (
 							<div className="error text-danger p" role="alert">
 								{passwordError}{' '}
 							</div>
@@ -93,9 +130,9 @@ function Signin() {
 					<button type="submit" class="btn btn-outline-primary m-3 p-3 w-25">
 						Sign in
 					</button>
-                    <div>
-                        <Link to='/sign-up'>Don't have an account?</Link>
-                    </div>
+					<div>
+						<Link to="/sign-up">Don't have an account?</Link>
+					</div>
 				</form>
 			</div>
 		</div>

@@ -38,6 +38,7 @@ function App() {
           type: "LOGIN",
           email: decodedToken.email,
           firstName: decodedToken.firstName,
+          lastName: decodedToken.lastName
         });
       }
     }
