@@ -17,10 +17,12 @@ function Profile() {
 
 	return (
 		// <div>{user.user.firstName}</div>
-		<>
+		<div className='d-flex justify-content-center'>
+		<div className='d-flex justify-content-center flex-column'>
 			<h1>Profile</h1>
-			<button onClick={onClickHandler}>Log out</button>
-		</>
+			<button className="btn btn-info" onClick={onClickHandler}>Log out</button>
+			</div>
+		</div>
 	);
 }
 
