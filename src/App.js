@@ -37,8 +37,8 @@ function App() {
         dispatch({
           type: "LOGIN",
           email: decodedToken.email,
-          // firstName: decodedToken.firstName,
-          // lastName: decodedToken.lastName
+          firstName: decodedToken.firstName,
+          lastName: decodedToken.lastName
         });
       }
     }

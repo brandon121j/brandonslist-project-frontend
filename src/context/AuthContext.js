@@ -13,8 +13,8 @@ function reducer(state, action) {
                 user: {
                     email: action.email,
                     isAuth: true,
-                    // firstName: action.firstName,
-                    // lastName: action.lastName
+                    firstName: action.firstName,
+                    lastName: action.lastName
                 }
             };
         case "LOGOUT":

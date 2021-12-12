@@ -41,7 +41,7 @@ function Signin({ setUser }) {
 				email,
 				password,
 			});
-			console.log(payload);
+			console.log(payload.data);
 			window.localStorage.setItem("jwtToken", payload.data.token);
 
 			let decodedToken = jwtDecode(payload.data.token);
@@ -49,8 +49,8 @@ function Signin({ setUser }) {
 			dispatch({
 				type: "LOGIN",
 				email: decodedToken.email,
-				// firstName: decodedToken.firstName,
-				// lastName: decodedToken.lastName
+				firstName: decodedToken.firstName,
+				lastName: decodedToken.lastName
 			})
 
 			toast.success('Login successful!', {
