@@ -5,3 +5,11 @@
 input:focus {
   box-shadow:none;
 }
+
+select {
+  cursor: pointer;
+}
+
+select:option {
+  cursor: pointer;
+}
