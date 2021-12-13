@@ -10,6 +10,7 @@ import Nav from './components/nav/Nav';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Profile from './components/profile/Profile';
 import Home from './components/home/Home';
+import CreatePosting from './components/createPosting/CreatePosting';
 
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
@@ -56,7 +57,13 @@ function App() {
               <Profile />
             </PrivateRoute>}
             />
-
+        <Route path="/create-posting"
+          element={
+            <PrivateRoute>
+                <CreatePosting />
+            </PrivateRoute>
+          }
+        />
           <Route path ='/sign-up' element={<Signup />} />
           <Route path='/sign-in' element={<Signin />} />
           <Route path='/' element={<Home />} />

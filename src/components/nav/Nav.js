@@ -13,7 +13,7 @@ function Nav() {
 			<div className="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul className="navbar-nav mr-auto mt-2 mt-md-0">
 					<li className="nav-item">
-						<a className="nav-link" href="#">
+						<a className="nav-link" href="/create-posting">
 							Create a Posting
 						</a>
 					</li>

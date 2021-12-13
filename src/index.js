@@ -9,7 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
   <AuthContextComponent>
     <App />
-  </AuthContextComponent>,
+  </AuthContextComponent>
   </React.StrictMode>,
   document.getElementById("root")
 );
