@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../App.css';
+import { usStates } from '../../data/States';
 
 const CreatePosting = () => {
+	useEffect(() => {
+		// usStates.map((item) => {
+		// 	console.log(item.abbreviation);
+		// });
+		// console.log(usStates)
+	}, []);
 	return (
 		<div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
@@ -53,39 +60,53 @@ const CreatePosting = () => {
 							/>
 						</div>
 					</div>
-                    <div class="row m-3">
-					<div className="form-group col-md-5 ">
-						<label className="mb-2">City</label>
-						<div class="">
-							<input
-								type="text"
-								className="form-control"
-								placeholder="City"
-								required
-							/>
+					<div class="row m-3">
+						<div className="form-group col-md-5 ">
+							<label className="mb-2">City</label>
+							<div class="">
+								<input
+									type="text"
+									className="form-control"
+									placeholder="City"
+									required
+								/>
+							</div>
+						</div>
+						<div className="form-group col-md-3">
+							<label className="mb-2">State</label>
+							<div class="">
+								<select id="inputState" className="form-control ">
+									<option selected>...</option>
+									{usStates.map((item) => {
+										return (
+											<option value={item.abbreviation} key={item.abbreviation}>
+												{item.abbreviation}
+											</option>
+										);
+									})}
+								</select>
+							</div>
+						</div>
+						<div className="form-group col-md-4">
+							<label className="mb-2">Zip</label>
+							<div class="">
+								<input
+									type="text"
+									className="form-control "
+									placeholder="Zip"
+									required
+								/>
+							</div>
 						</div>
 					</div>
-					<div className="form-group col-md-3">
-						<label className="mb-2">State</label>
-						<div class="">
-							<select id="inputState" className="form-control ">
-								<option selected>...</option>
-								<option>...</option>
-							</select>
-						</div>
-					</div>
-					<div className="form-group col-md-4">
-						<label className="mb-2">Zip</label>
-						<div class="">
-							<input
-								type="text"
-								className="form-control "
-								placeholder="Zip"
-                                
-								required
-							/>
-						</div>
-                        </div>
+					<div className="justify-content-center m-3">
+                        {/* <label class="custom-file-label mr-3" for="customFile">Choose file</label> */}
+						<input
+							type="file"
+							multiple
+							accept="image/*"
+							className=""
+						/>
 					</div>
 					<div className="justify-content-center m-3">
 						<button type="submit" className="btn btn-outline-primary">
