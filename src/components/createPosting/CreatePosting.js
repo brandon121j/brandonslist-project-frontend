@@ -9,6 +9,7 @@ const CreatePosting = () => {
 		// });
 		// console.log(usStates)
 	}, []);
+    
 	return (
 		<div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
@@ -105,7 +106,7 @@ const CreatePosting = () => {
 							type="file"
 							multiple
 							accept="image/*"
-							className=""
+							className="btn button-secondary"
 						/>
 					</div>
 					<div className="justify-content-center m-3">

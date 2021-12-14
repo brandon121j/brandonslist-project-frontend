@@ -1,15 +1,25 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 input:focus {
-  box-shadow:none;
+	box-shadow: none;
 }
 
 select {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 select:option {
-  cursor: pointer;
+	cursor: pointer;
 }
+
+input[type='file'] {
+	border: 1px solid #ccc;
+	cursor: pointer;
+  text-align: center;
+  /* justify-content: center; */
+  /* margin: 15px; */
+  /* padding-top: 20px; */
+}
+
