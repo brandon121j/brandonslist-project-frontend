@@ -95,12 +95,12 @@ function Signup() {
 							placeholder="First name"
 							className={`${
 								!firstNameError
-									? 'form-control border border-success'
-									: 'form-control border border-danger'
+									? 'form-control is-valid'
+									: 'form-control is-invalid'
 							}`}
 						/>
 						{firstNameError && (
-							<div className="error text-danger p" role="alert">
+							<div className="invalid-feedback" role="alert">
 								{firstNameError}{' '}
 							</div>
 						)}
@@ -115,12 +115,12 @@ function Signup() {
 							placeholder="last name"
 							className={`${
 								!lastNameError
-									? 'form-control border border-success'
-									: 'form-control border border-danger'
+									? 'form-control is-valid'
+									: 'form-control is-invalid'
 							}`}
 						/>
 						{lastNameError && (
-							<div className="error text-danger p" role="alert">
+							<div className="invalid-feedback" role="alert">
 								{lastNameError}{' '}
 							</div>
 						)}
@@ -135,12 +135,12 @@ function Signup() {
 							placeholder="Email"
 							className={`${
 								!emailError
-									? 'form-control border border-success'
-									: 'form-control border border-danger'
+								? 'form-control is-valid'
+									: 'form-control is-invalid'
 							}`}
 						/>
 						{emailError && (
-							<div className="error text-danger p" role="alert">
+							<div className="invalid-feedback" role="alert">
 								{emailError}{' '}
 							</div>
 						)}
@@ -154,13 +154,13 @@ function Signup() {
 							onBlur={setPasswordOnBlur}
 							className={`${
 								!passwordError
-									? 'form-control border border-success'
-									: 'form-control border border-danger'
+								? 'form-control is-valid'
+									: 'form-control is-invalid'
 							}`}
 						/>
 						<PasswordStrength password={password} />
 						{passwordError && (
-							<div className="error text-danger p" role="alert">
+							<div className="invalid-feedback" role="alert">
 								{passwordError}{' '}
 							</div>
 						)}
@@ -172,14 +172,14 @@ function Signup() {
 							placeholder="Confirm password"
 							className={`${
 								!confirmError
-									? 'form-control border border-success'
-									: 'form-control border border-danger'
+								? 'form-control is-valid'
+									: 'form-control is-invalid'
 							}`}
 							onChange={handleConfirmOnChange}
 							onBlur={setConfirmOnBlur}
 						/>
 						{confirmError && (
-							<div className="error text-danger p" role="alert">
+							<div className="invalid-feedback" role="alert">
 								{confirmError}{' '}
 							</div>
 						)}

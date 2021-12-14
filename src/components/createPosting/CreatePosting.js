@@ -2,7 +2,18 @@ import React, { useEffect } from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
 
+import CategoryHooks from '../../hooks/CategoryHooks';
+
 const CreatePosting = () => {
+
+    const [
+        category,
+        handleCategoryOnChange,
+        categoryError,
+        setCategoryOnBlur
+    ] = CategoryHooks()
+
+
 	useEffect(() => {
 		// usStates.map((item) => {
 		// 	console.log(item.abbreviation);
@@ -17,13 +28,29 @@ const CreatePosting = () => {
 					<h2 className="m-3">Create Posting</h2>
 					<div className="form-group row justify-content-center m-3">
 						<div class="col-sm-12">
-							<select class="form-control text-center">
+							<select 
+                            class="form-control text-center"
+                            onBlur={setCategoryOnBlur}
+                            onChange={handleCategoryOnChange}
+                            id={category}
+                            name='category'
+                            className={`${
+								!categoryError
+									? 'form-control is-valid'
+									: 'form-control is-invalid'
+							}`}
+                            >
 								<option selected>Select a Category</option>
 								<option value="Jobs">Jobs</option>
 								<option value="Housing">Housing</option>
 								<option value="For Sale">For Sale</option>
 								<option value="Wanted">Wanted</option>
 							</select>
+                            {categoryError && (
+							<div className="invalid-feedback" role="alert">
+								{categoryError}{' '}
+							</div>
+						)}
 						</div>
 					</div>
 					<div className="form-group row justify-content-center m-3">
@@ -33,6 +60,7 @@ const CreatePosting = () => {
 								type="text"
 								class="form-control"
 								placeholder="Posting Title"
+                                className='was-validated'
 								required
 							/>
 						</div>

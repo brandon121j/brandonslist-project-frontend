@@ -8,8 +8,12 @@ function CategoryHooks() {
 
     useEffect(() => {
         if (onBlur) {
+            console.log('working')
             if (isEmpty(category)) {
                 setError('Category is required')
+            } else if (category == 'Select a Category') {
+                setError('Category is required')
+                console.log('CATEGORY HOOK WORKING')
             } else {
                 setError('');
             }
@@ -22,3 +26,5 @@ function CategoryHooks() {
 
     return [category, handleCategoryOnChange, error, setOnBlur]
 }
+
+export default CategoryHooks
