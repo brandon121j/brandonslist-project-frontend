@@ -47,39 +47,39 @@ const CreatePosting = () => {
 						<div class="col-sm-8">
 							<textarea
 								type="text"
-								class="form-control"
+								className="form-control"
 								placeholder="Posting Description"
 								required
 							/>
 						</div>
 					</div>
-                    <div class="form-row">
-					<div className="form-group row justify-content-center m-3">
-						<label className="col-sm-4 col-form-label">City</label>
-						<div class="col-sm-8">
+                    <div class="row m-3">
+					<div className="form-group col-md-5 ">
+						<label className="mb-2">City</label>
+						<div class="">
 							<input
 								type="text"
-								class="form-control"
+								className="form-control"
 								placeholder="City"
 								required
 							/>
 						</div>
 					</div>
-					<div className="form-group row justify-content-center m-3">
-						<label className="col-sm-4 col-form-label">State</label>
-						<div class="col-sm-8">
-							<select id="inputState" className="form-control w-75">
-								<option selected>Choose...</option>
+					<div className="form-group col-md-3">
+						<label className="mb-2">State</label>
+						<div class="">
+							<select id="inputState" className="form-control ">
+								<option selected>...</option>
 								<option>...</option>
 							</select>
 						</div>
 					</div>
-					<div className="form-group row justify-content-center m-3">
-						<label className="col-sm-4 ml-3 col-form-label">Zip</label>
-						<div class="col-sm-8">
+					<div className="form-group col-md-4">
+						<label className="mb-2">Zip</label>
+						<div class="">
 							<input
 								type="text"
-								className="form-control w-75"
+								className="form-control "
 								placeholder="Zip"
                                 
 								required
