@@ -209,7 +209,7 @@ const CreatePosting = () => {
 						/>
 					</div>
 					<div className="justify-content-center m-3">
-						<button type="submit" className="btn btn-outline-primary">
+						<button type="submit" className="btn btn-outline-success">
 							Create Posting
 						</button>
 					</div>
