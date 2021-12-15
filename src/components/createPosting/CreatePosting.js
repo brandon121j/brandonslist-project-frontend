@@ -1,26 +1,49 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
 
 import CategoryHooks from '../../hooks/CategoryHooks';
+import TitleHooks from '../../hooks/TitleHooks';
+import PriceHooks from '../../hooks/PriceHooks';
+import DescriptionHooks from '../../hooks/DescriptionHooks';
+import LocationHooks from '../../hooks/LocationHooks';
 
 const CreatePosting = () => {
+	const [
+		category,
+		handleCategoryOnChange,
+		categoryError,
+		setCategoryOnBlur,
+		validator,
+	] = CategoryHooks();
 
-    const [
-        category,
-        handleCategoryOnChange,
-        categoryError,
-        setCategoryOnBlur,
-        validator
-    ] = CategoryHooks()
+	const [handleTitleChange, title, titleError, setTitleOnBlur, titleClassName] =
+		TitleHooks();
 
-	useEffect(() => {
-		// usStates.map((item) => {
-		// 	console.log(item.abbreviation);
-		// });
-		// console.log(usStates)
-	}, []);
-    
+	const [handlePriceChange, price, priceError, setPriceOnBlur, priceClass] =
+		PriceHooks();
+
+	const [handleDescChange, desc, descError, setDescOnBlur, descClass] =
+		DescriptionHooks();
+
+	const [
+		handleCityChange,
+		handleStateChange,
+		handleZipChange,
+		setCityBlur,
+		setStateBlur,
+		setZipBlur,
+		cityError,
+		stateError,
+		zipError,
+		cityClass,
+		stateClass,
+		zipClass,
+        city,
+        state,
+        zip
+	] = LocationHooks();
+
 	return (
 		<div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
@@ -28,25 +51,25 @@ const CreatePosting = () => {
 					<h2 className="m-3">Create Posting</h2>
 					<div className="form-group row justify-content-center m-3">
 						<div class="col-sm-12">
-							<select 
-                            class="form-control text-center"
-                            onBlur={setCategoryOnBlur}
-                            onChange={handleCategoryOnChange}
-                            id={category}
-                            name='category'
-                            className={validator}
-                            >
+							<select
+								class="form-control text-center"
+								onBlur={setCategoryOnBlur}
+								onChange={handleCategoryOnChange}
+								id={category}
+								name="category"
+								className={validator}
+							>
 								<option selected>Select a Category</option>
 								<option value="Jobs">Jobs</option>
 								<option value="Housing">Housing</option>
 								<option value="For Sale">For Sale</option>
 								<option value="Wanted">Wanted</option>
 							</select>
-                            {categoryError && (
-							<div className="invalid-feedback" role="alert">
-								{categoryError}{' '}
-							</div>
-						)}
+							{categoryError && (
+								<div className="invalid-feedback" role="alert">
+									{categoryError}{' '}
+								</div>
+							)}
 						</div>
 					</div>
 					<div className="form-group row justify-content-center m-3">
@@ -56,8 +79,17 @@ const CreatePosting = () => {
 								type="text"
 								class="form-control"
 								placeholder="Posting Title"
+								onBlur={setTitleOnBlur}
+								onChange={handleTitleChange}
+								className={titleClassName}
+								id={title}
 								required
 							/>
+							{titleError && (
+								<div className="invalid-feedback" role="alert">
+									{titleError}{' '}
+								</div>
+							)}
 						</div>
 					</div>
 					<div className="form-group row justify-content-center m-3">
@@ -69,8 +101,17 @@ const CreatePosting = () => {
 								max="999999"
 								class="form-control"
 								placeholder="Posting Price"
+								onChange={handlePriceChange}
+								onBlur={setPriceOnBlur}
+								className={priceClass}
+								id={price}
 								required
 							/>
+							{priceError && (
+								<div className="invalid-feedback" role="alert">
+									{priceError}{' '}
+								</div>
+							)}
 						</div>
 					</div>
 					<div className="form-group row justify-content-center m-3">
@@ -80,8 +121,17 @@ const CreatePosting = () => {
 								type="text"
 								className="form-control"
 								placeholder="Posting Description"
+								onChange={handleDescChange}
+								onBlur={setDescOnBlur}
+								className={descClass}
+								id={desc}
 								required
 							/>
+							{descError && (
+								<div className="invalid-feedback" role="alert">
+									{descError}{' '}
+								</div>
+							)}
 						</div>
 					</div>
 					<div class="row m-3">
@@ -90,16 +140,29 @@ const CreatePosting = () => {
 							<div class="">
 								<input
 									type="text"
-									className="form-control"
+									className={cityClass}
+                                    onChange={handleCityChange}
+                                    id={city}
+                                    onBlur={setCityBlur}
 									placeholder="City"
 									required
 								/>
+								{cityError && (
+									<div className="invalid-feedback" role="alert">
+										{cityError}{' '}
+									</div>
+								)}
 							</div>
 						</div>
 						<div className="form-group col-md-3">
 							<label className="mb-2">State</label>
 							<div class="">
-								<select id="inputState" className="form-control ">
+								<select 
+                                id={state} 
+                                className={stateClass}
+                                onBlur={setStateBlur}
+                                onChange={handleStateChange}
+                                >
 									<option selected>...</option>
 									{usStates.map((item) => {
 										return (
@@ -109,6 +172,11 @@ const CreatePosting = () => {
 										);
 									})}
 								</select>
+								{stateError && (
+									<div className="invalid-feedback" role="alert">
+										{stateError}{' '}
+									</div>
+								)}
 							</div>
 						</div>
 						<div className="form-group col-md-4">
@@ -116,15 +184,23 @@ const CreatePosting = () => {
 							<div class="">
 								<input
 									type="text"
-									className="form-control "
+									className={zipClass}
 									placeholder="Zip"
+                                    onChange={handleZipChange}
+                                    onBlur={setZipBlur}
+                                    id={zip}
 									required
 								/>
+								{zipError && (
+									<div className="invalid-feedback" role="alert">
+										{zipError}{' '}
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
 					<div className="justify-content-center m-3">
-                        {/* <label class="custom-file-label mr-3" for="customFile">Choose file</label> */}
+						{/* <label class="custom-file-label mr-3" for="customFile">Choose file</label> */}
 						<input
 							type="file"
 							multiple
