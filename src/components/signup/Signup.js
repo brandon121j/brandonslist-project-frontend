@@ -18,6 +18,7 @@ function Signup() {
 		handleFirstNameOnChange,
 		firstNameError,
 		setFirstNameOnBlur,
+		firstClassName
 	] = FirstNameHooks();
 	const [lastName, handleLastNameOnChange, lastNameError, setLastNameOnBlur] =
 		LastNameHooks();
@@ -93,11 +94,7 @@ function Signup() {
 							id={firstName}
 							onBlur={setFirstNameOnBlur}
 							placeholder="First name"
-							className={`${
-								!firstNameError
-									? 'form-control is-valid'
-									: 'form-control is-invalid'
-							}`}
+							className={firstClassName}
 						/>
 						{firstNameError && (
 							<div className="invalid-feedback" role="alert">

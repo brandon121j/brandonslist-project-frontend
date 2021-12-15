@@ -10,9 +10,9 @@ const CreatePosting = () => {
         category,
         handleCategoryOnChange,
         categoryError,
-        setCategoryOnBlur
+        setCategoryOnBlur,
+        validator
     ] = CategoryHooks()
-
 
 	useEffect(() => {
 		// usStates.map((item) => {
@@ -34,11 +34,7 @@ const CreatePosting = () => {
                             onChange={handleCategoryOnChange}
                             id={category}
                             name='category'
-                            className={`${
-								!categoryError
-									? 'form-control is-valid'
-									: 'form-control is-invalid'
-							}`}
+                            className={validator}
                             >
 								<option selected>Select a Category</option>
 								<option value="Jobs">Jobs</option>
@@ -60,7 +56,6 @@ const CreatePosting = () => {
 								type="text"
 								class="form-control"
 								placeholder="Posting Title"
-                                className='was-validated'
 								required
 							/>
 						</div>

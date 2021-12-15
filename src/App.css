@@ -17,7 +17,7 @@ select:option {
 input[type='file'] {
 	border: 1px solid #ccc;
 	cursor: pointer;
-  text-align: center;
+  	text-align: center;
   /* justify-content: center; */
   /* margin: 15px; */
   /* padding-top: 20px; */
