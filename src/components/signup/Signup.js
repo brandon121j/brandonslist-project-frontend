@@ -20,9 +20,9 @@ function Signup() {
 		setFirstNameOnBlur,
 		firstClassName
 	] = FirstNameHooks();
-	const [lastName, handleLastNameOnChange, lastNameError, setLastNameOnBlur] =
+	const [lastName, handleLastNameOnChange, lastNameError, setLastNameOnBlur, lastClassName] =
 		LastNameHooks();
-	const [email, handleEmailOnChange, emailError, setEmailOnBlur] = EmailHooks();
+	const [email, handleEmailOnChange, emailError, setEmailOnBlur, emailClassName] = EmailHooks();
 	const [
 		password,
 		handlePasswordOnChange,
@@ -31,6 +31,8 @@ function Signup() {
 		setConfirmOnBlur,
 		confirmError,
 		handleConfirmOnChange,
+		passwordClassName,
+		confirmClassName
 	] = PasswordHooks();
 
 	const navigate = useNavigate();
@@ -110,11 +112,7 @@ function Signup() {
 							id={lastName}
 							onBlur={setLastNameOnBlur}
 							placeholder="last name"
-							className={`${
-								!lastNameError
-									? 'form-control is-valid'
-									: 'form-control is-invalid'
-							}`}
+							className={lastClassName}
 						/>
 						{lastNameError && (
 							<div className="invalid-feedback" role="alert">
@@ -130,11 +128,7 @@ function Signup() {
 							id={email}
 							onBlur={setEmailOnBlur}
 							placeholder="Email"
-							className={`${
-								!emailError
-								? 'form-control is-valid'
-									: 'form-control is-invalid'
-							}`}
+							className={emailClassName}
 						/>
 						{emailError && (
 							<div className="invalid-feedback" role="alert">
@@ -149,11 +143,7 @@ function Signup() {
 							placeholder="Password"
 							onChange={handlePasswordOnChange}
 							onBlur={setPasswordOnBlur}
-							className={`${
-								!passwordError
-								? 'form-control is-valid'
-									: 'form-control is-invalid'
-							}`}
+							className={passwordClassName}
 						/>
 						<PasswordStrength password={password} />
 						{passwordError && (
@@ -167,11 +157,7 @@ function Signup() {
 						<input
 							type="password"
 							placeholder="Confirm password"
-							className={`${
-								!confirmError
-								? 'form-control is-valid'
-									: 'form-control is-invalid'
-							}`}
+							className={confirmClassName}
 							onChange={handleConfirmOnChange}
 							onBlur={setConfirmOnBlur}
 						/>

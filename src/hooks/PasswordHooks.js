@@ -7,29 +7,36 @@ function PasswordHooks() {
 	const [error, setError] = useState('');
     const [confirmError, setConfirmError] = useState('');
     const [confirmBlur, setConfirmBlur] = useState(false);
+    const [className, setClassName] = useState('form-control');
+    const [confirmClass, setConfirmClass] = useState('form-control')
 	const [onBlur, setOnBlur] = useState(false);
     const passwordTester = zxcvbn(password);
 
     useEffect(() => {
         if (onBlur) {
             if (password.length === 0) {
-                setError('Password cannot be empty')
+                setError('Password cannot be empty');
+                setClassName('form-control is-invalid');
             } else if (passwordTester.score < 2) { 
                 setError('Password too weak');
                 console.log('TOO WEAK');
+                setClassName('form-control is-invalid');
             } else {
-                setError('')
+                setError('');
+                setClassName('form-control is-valid');
             }
         }
 
         if (confirmBlur) {
             if (confirm.length === 0) {
-                setConfirmError('Confirm password cannot be empty')
+                setConfirmError('Confirm password cannot be empty');
+                setConfirmClass('form-control is-invalid');
             } else if (confirm !== password) {
-                console.log('Confirm: ', confirm,'Password: ', password)
-                setConfirmError('Passwords must match')
+                setConfirmError('Passwords must match');
+                setConfirmClass('form-control is-invalid');
             } else {
-                setConfirmError('')
+                setConfirmError('');
+                setConfirmClass('form-control is-valid');
             }
         }
     }, [password, confirm, onBlur, confirmBlur])
@@ -42,7 +49,7 @@ function PasswordHooks() {
         setConfirm(e.target.value);
     }
 
-	return [password, handlePasswordOnChange, error, setOnBlur, setConfirmBlur, confirmError, handleConfirmOnChange];
+	return [password, handlePasswordOnChange, error, setOnBlur, setConfirmBlur, confirmError, handleConfirmOnChange, className, confirmClass];
 }
 
 export default PasswordHooks;
