@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import CheckToken from '../../hooks/CheckToken';
 import { toast } from 'react-toastify';
@@ -9,23 +9,23 @@ function Home() {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		getPosts()
-	}, [])
+		getPosts();
+	}, []);
 
 	async function getPosts() {
 		try {
-			setLoading(true)
+			setLoading(true);
 			let url = 'http://localhost:3001/api/auth/postings/get-all-listings';
 
 			let posts = await axios.get(url);
 
-			setPostings(posts);
+			setPostings(posts.data.allPostings);
 
 			setLoading(false);
 
-			console.log(postings)
-
-		} catch(e) {
+			console.log(postings);
+		} catch (e) {
+			console.log(e.response);
 			toast.error(e.response.data.error, {
 				position: 'top-center',
 				autoClose: 5000,
@@ -40,29 +40,48 @@ function Home() {
 
 	return (
 		<>
-		{loading ? (
-			<>
-				<h1>Hello</h1>
-			</>
-		) :  (
-			<>
-			<div className="d-flex justify-content-center text-center rounded m-5">
-				<h1>Home</h1>
+			{loading ? (
+				<div class="spinner-border text-primary" role="status">
+					<span class="sr-only">Loading...</span>
 				</div>
-			<div className="d-flex justify-content-center text-center rounded m-5 p-3">
-				<div className="card w-25">
-						<h3>Posting Title</h3>
-						<div className='card-body'>
-							<p>Posting Content</p>
-						</div>
+			) : (
+				<div class="container">
+				<div className="row" style={{margin: "auto"}}>
+					{postings.map((item) => {
+						return (
+							<>
+							<div class="col-sm-3">
+								<div className="text-center rounded p-3">
+									<div className="card border-secondary" style={{ height: '350px', width: '302px'}}>
+										<img className="card-img-top" src={item.picture} style={{height:'190px', width:'300px'}}/>
+										<div className="card-body">
+											<h4 className="card-title" style={{ maxHeight: '50px'}}>{item.listing}</h4>
+											<p className="card-text" style={{ maxHeight: '25px'}}>{item.city}, {item.state}, {item.zip} </p>
+										</div>
+										<div class="card-footer" style={{ maxHeight: '50px'}}>
+											$ {item.price}
+										</div>
+									</div>
+								</div>
+							</div>
+							</>
+						);
+					})}
+					</div>
 				</div>
-			</div>
-			</>
-
-		)}
+			)}
 		</>
-
 	);
+
+	// category,
+	//         city,
+	//         state,
+	//         zip,
+	//         picture,
+	//         listing,
+	//         price,
+	//         description,
+	//         userID
 }
 
 export default Home;
