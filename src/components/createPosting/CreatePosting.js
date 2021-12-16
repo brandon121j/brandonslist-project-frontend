@@ -7,6 +7,7 @@ import TitleHooks from '../../hooks/TitleHooks';
 import PriceHooks from '../../hooks/PriceHooks';
 import DescriptionHooks from '../../hooks/DescriptionHooks';
 import LocationHooks from '../../hooks/LocationHooks';
+import ImageHooks from '../../hooks/ImageHooks';
 
 const CreatePosting = () => {
 	const [
@@ -25,6 +26,8 @@ const CreatePosting = () => {
 
 	const [handleDescChange, desc, descError, setDescOnBlur, descClass] =
 		DescriptionHooks();
+
+	const [img, handleImgChange, setImgBlur, imgClass] = ImageHooks()
 
 	const [
 		handleCityChange,
@@ -199,13 +202,15 @@ const CreatePosting = () => {
 							</div>
 						</div>
 					</div>
-					<div className="justify-content-center m-3">
+					<div className="justify-content-center m-3 custom-file">
 						{/* <label class="custom-file-label mr-3" for="customFile">Choose file</label> */}
 						<input
 							type="file"
 							multiple
 							accept="image/*"
-							className="btn button-secondary"
+							className={imgClass}
+							onInput={handleImgChange}
+							onBlur={setImgBlur}
 						/>
 					</div>
 					<div className="justify-content-center m-3">
