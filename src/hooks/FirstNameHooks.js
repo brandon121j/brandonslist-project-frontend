@@ -2,32 +2,32 @@ import { useState, useEffect } from 'react';
 import { isAlpha } from 'validator';
 
 function FirstNameHooks() {
-	const [firstName, setFirstName] = useState('');
-	const [error, setError] = useState('');
+	const [first, setFirst] = useState('');
+	const [err, setErr] = useState('');
     const [className, setClassName] = useState('form-control');
     const [onBlur, setOnBlur] = useState(false);
 
     useEffect(() => {
         if (onBlur) {
-            if (firstName.length === 0) {
+            if (first.length === 0) {
                 setClassName('form-control is-invalid');
-                setError('First name cannot be empty');
-            } else if (!isAlpha(firstName)) {
-                setError('Cannot have special characters or numbers');
+                setErr('First name cannot be empty');
+            } else if (!isAlpha(first)) {
+                setErr('Cannot have special characters or numbers');
                 setClassName('form-control is-invalid');
             } else {
-                setError('');
+                setErr('');
                 setClassName('form-control is-valid');
             }
         }
 
-	}, [firstName, onBlur]);
+	}, [first, onBlur]);
 
 	function handleFirstNameOnChange(e) {
-		setFirstName(e.target.value);
+		setFirst(e.target.value);
 	}
 
-	return [firstName, handleFirstNameOnChange, error, setOnBlur, className];
+	return [first, handleFirstNameOnChange, err, setOnBlur, className];
 }
 
 export default FirstNameHooks;

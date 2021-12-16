@@ -26,7 +26,7 @@ function Home() {
 			console.log(postings);
 		} catch (e) {
 			console.log(e.response);
-			toast.error(e.response.data.error, {
+			toast.error(e.response, {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -42,7 +42,7 @@ function Home() {
 		<>
 			{loading ? (
 				<div class="spinner-border text-primary" role="status">
-					<span class="sr-only">Loading...</span>
+					<span class="sr-only"></span>
 				</div>
 			) : (
 				<div class="container">
@@ -50,7 +50,7 @@ function Home() {
 					{postings.map((item) => {
 						return (
 							<>
-							<div class="col-sm-3">
+							<div class="col-3">
 								<div className="text-center rounded p-3">
 									<div className="card border-secondary" style={{ height: '350px', width: '302px'}}>
 										<img className="card-img-top" src={item.picture} style={{height:'190px', width:'300px'}}/>

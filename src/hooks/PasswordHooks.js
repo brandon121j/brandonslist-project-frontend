@@ -4,8 +4,8 @@ import zxcvbn from 'zxcvbn';
 function PasswordHooks() {
 	const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
-	const [error, setError] = useState('');
-    const [confirmError, setConfirmError] = useState('');
+	const [err, setErr] = useState('');
+    const [confirmErr, setConfirmErr] = useState('');
     const [confirmBlur, setConfirmBlur] = useState(false);
     const [className, setClassName] = useState('form-control');
     const [confirmClass, setConfirmClass] = useState('form-control')
@@ -15,27 +15,27 @@ function PasswordHooks() {
     useEffect(() => {
         if (onBlur) {
             if (password.length === 0) {
-                setError('Password cannot be empty');
+                setErr('Password cannot be empty');
                 setClassName('form-control is-invalid');
             } else if (passwordTester.score < 2) { 
-                setError('Password too weak');
+                setErr('Password too weak');
                 console.log('TOO WEAK');
                 setClassName('form-control is-invalid');
             } else {
-                setError('');
+                setErr('');
                 setClassName('form-control is-valid');
             }
         }
 
         if (confirmBlur) {
             if (confirm.length === 0) {
-                setConfirmError('Confirm password cannot be empty');
+                setConfirmErr('Confirm password cannot be empty');
                 setConfirmClass('form-control is-invalid');
             } else if (confirm !== password) {
-                setConfirmError('Passwords must match');
+                setConfirmErr('Passwords must match');
                 setConfirmClass('form-control is-invalid');
             } else {
-                setConfirmError('');
+                setConfirmErr('');
                 setConfirmClass('form-control is-valid');
             }
         }
@@ -49,7 +49,7 @@ function PasswordHooks() {
         setConfirm(e.target.value);
     }
 
-	return [password, handlePasswordOnChange, error, setOnBlur, setConfirmBlur, confirmError, handleConfirmOnChange, className, confirmClass];
+	return [password, handlePasswordOnChange, err, setOnBlur, setConfirmBlur, confirmErr, handleConfirmOnChange, className, confirmClass];
 }
 
 export default PasswordHooks;
