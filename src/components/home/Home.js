@@ -23,7 +23,7 @@ function Home() {
 
 			setLoading(false);
 
-			console.log(postings);
+			console.log(posts);
 		} catch (e) {
 			console.log(e.response);
 			toast.error(e.response, {
@@ -55,7 +55,7 @@ function Home() {
 									<div className="card border-secondary" style={{ height: '350px', width: '302px'}}>
 										<img className="card-img-top" src={item.picture} style={{height:'190px', width:'300px'}}/>
 										<div className="card-body">
-											<h4 className="card-title" style={{ maxHeight: '50px'}}>{item.listing}</h4>
+											<h4 className="card-title" style={{ maxHeight: '50px'}}>{item.title}</h4>
 											<p className="card-text" style={{ maxHeight: '25px'}}>{item.city}, {item.state}, {item.zip} </p>
 										</div>
 										<div class="card-footer" style={{ maxHeight: '50px'}}>

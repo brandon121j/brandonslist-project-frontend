@@ -19,8 +19,7 @@ function Profile() {
 	useEffect(() => {
 		let payload = window.localStorage.getItem("jwtToken");
 		let decodedToken = jwtDecode(payload);
-		setData(decodedToken)
-	
+		setData(decodedToken);
 	}, [])
 
 	return (

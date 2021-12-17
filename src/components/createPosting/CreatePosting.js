@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import CheckToken from '../../hooks/CheckToken';
 
 import CategoryHooks from '../../hooks/CategoryHooks';
 import TitleHooks from '../../hooks/TitleHooks';
@@ -44,13 +49,106 @@ const CreatePosting = () => {
 		zipClass,
         city,
         state,
-        zip
+        zipCode
 	] = LocationHooks();
+
+	const { checkJwtToken } = CheckToken();
+	let navigate = useNavigate();
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		try {
+			if (localStorage.getItem('jwtToken') === null) {
+				toast.error('Please Login', {
+					position: 'top-center',
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+				navigate('/sign-in');
+			} else {
+
+			let formData = new FormData();
+
+			formData.append('category', category);
+			formData.append('listing', title);
+			formData.append('price', price);
+			formData.append('description', desc);
+			formData.append('city', city);
+			formData.append('state', state);
+			formData.append('zip', zipCode);
+			formData.append('image', img);
+
+			// for (var pair of formData.entries()) {
+			// 	console.log(pair[0]+ ', ' + pair[1]); 
+			// }
+
+
+			for (let iterator in formData.get('image')) {
+				console.log(iterator)
+			}
+			console.log(formData)
+
+			let url = 'http://localhost:3001/api/auth/postings/create-listing';
+			// process.env.NODE_ENV === 'production'
+			// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
+			// 	: 'http://localhost:3001/api/users/create-user';
+
+			let token = window.localStorage.getItem("jwtToken");
+
+			// let payload = await axios.post(url, {
+			// 	category: category,
+			// 	listing: title,
+			// 	price: price,
+			// 	description: desc,
+			// 	city: city,
+			// 	state: state,
+			// 	zip: zipCode,
+			// 	picture: formData.get('image'),
+			// 	// userID: formData.get(''),
+			// },
+			let payload = await axios.post(url, formData,
+			{
+				headers : {
+					"Authorization" : `Bearer ${localStorage.getItem('jwtToken')}`,
+					"Content-type": "multipart/form-data"
+				}
+			});
+			console.log(payload.data);
+
+			toast.success('Posting created!', {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			navigate('/');
+		}
+		} catch (e) {
+			toast.error(e.response, {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			console.log(e.response);
+		}
+	}
+
 
 	return (
 		<div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
-				<form class="card-body text-center justify-content-center">
+				<form class="card-body text-center justify-content-center" onSubmit={handleSubmit} encType="multipart/form-data">
 					<h2 className="m-3">Create Posting</h2>
 					<div className="form-group row justify-content-center m-3">
 						<div class="col-sm-12">
@@ -191,7 +289,7 @@ const CreatePosting = () => {
 									placeholder="Zip"
                                     onChange={handleZipChange}
                                     onBlur={setZipBlur}
-                                    id={zip}
+                                    id={zipCode}
 									required
 								/>
 								{zipError && (
