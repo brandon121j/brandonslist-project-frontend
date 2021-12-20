@@ -41,32 +41,53 @@ function Home() {
 	return (
 		<>
 			{loading ? (
-				<div class="spinner-border text-primary" role="status">
-					<span class="sr-only"></span>
+				<div className="d-flex justify-content-center m-5">
+					<div className="d-flex justify-content-center m-5">
+						<div class="spinner-border text-primary" role="status">
+							<span class="sr-only"></span>
+						</div>
+					</div>
 				</div>
 			) : (
 				<div class="container">
-				<div className="row" style={{margin: "auto"}}>
-					{postings.map((item) => {
-						return (
-							<>
-							<div class="col-3">
-								<div className="text-center rounded p-3">
-									<div className="card border-secondary" style={{ height: '350px', width: '302px'}}>
-										<img className="card-img-top" src={item.picture} style={{height:'190px', width:'300px'}}/>
-										<div className="card-body">
-											<h4 className="card-title" style={{ maxHeight: '50px'}}>{item.title}</h4>
-											<p className="card-text" style={{ maxHeight: '25px'}}>{item.city}, {item.state}, {item.zip} </p>
-										</div>
-										<div class="card-footer" style={{ maxHeight: '50px'}}>
-											$ {item.price}
+					<div className="row" style={{ margin: 'auto' }}>
+						{postings.map((item) => {
+							return (
+								<>
+									<div class="col-3">
+										<div className="text-center rounded p-3">
+											<div
+												className="card border-secondary"
+												style={{ height: '350px', width: '302px' }}
+											>
+												<img
+													className="card-img-top"
+													src={item.picture}
+													style={{ height: '190px', width: '300px' }}
+												/>
+												<div className="card-body">
+													<h4
+														className="card-title"
+														style={{ maxHeight: '50px' }}
+													>
+														{item.title}
+													</h4>
+													<p
+														className="card-text"
+														style={{ maxHeight: '25px' }}
+													>
+														{item.city}, {item.state}, {item.zip}{' '}
+													</p>
+												</div>
+												<div class="card-footer" style={{ maxHeight: '50px' }}>
+													$ {item.price}
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-							</>
-						);
-					})}
+								</>
+							);
+						})}
 					</div>
 				</div>
 			)}

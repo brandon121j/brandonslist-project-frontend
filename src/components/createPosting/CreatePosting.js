@@ -71,26 +71,22 @@ const CreatePosting = () => {
 				navigate('/sign-in');
 			} else {
 
-			let formData = new FormData();
+			let fd = new FormData();
 
-			formData.append('category', category);
-			formData.append('listing', title);
-			formData.append('price', price);
-			formData.append('description', desc);
-			formData.append('city', city);
-			formData.append('state', state);
-			formData.append('zip', zipCode);
-			formData.append('image', img);
+			fd.append('category', category);
+			fd.append('listing', title);
+			fd.append('price', price);
+			fd.append('description', desc);
+			fd.append('city', city);
+			fd.append('state', state);
+			fd.append('zip', zipCode);
+			fd.append('picture', img);
 
 			// for (var pair of formData.entries()) {
 			// 	console.log(pair[0]+ ', ' + pair[1]); 
 			// }
 
-
-			for (let iterator in formData.get('image')) {
-				console.log(iterator)
-			}
-			console.log(formData)
+			// console.log(formData)
 
 			let url = 'http://localhost:3001/api/auth/postings/create-listing';
 			// process.env.NODE_ENV === 'production'
@@ -99,25 +95,15 @@ const CreatePosting = () => {
 
 			let token = window.localStorage.getItem("jwtToken");
 
-			// let payload = await axios.post(url, {
-			// 	category: category,
-			// 	listing: title,
-			// 	price: price,
-			// 	description: desc,
-			// 	city: city,
-			// 	state: state,
-			// 	zip: zipCode,
-			// 	picture: formData.get('image'),
-			// 	// userID: formData.get(''),
-			// },
-			let payload = await axios.post(url, formData,
+
+			let payload = await axios.post(url, fd,
 			{
 				headers : {
 					"Authorization" : `Bearer ${localStorage.getItem('jwtToken')}`,
-					"Content-type": "multipart/form-data"
+					"Accept": "application/json"
 				}
 			});
-			console.log(payload.data);
+			console.log(payload);
 
 			toast.success('Posting created!', {
 				position: 'top-center',
@@ -140,7 +126,7 @@ const CreatePosting = () => {
 				draggable: true,
 				progress: undefined,
 			});
-			console.log(e.response);
+			console.log(e);
 		}
 	}
 
