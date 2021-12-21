@@ -57,8 +57,7 @@ function Profile() {
 		}
 	}
 
-	async function deleteHandler(picture_id, post_id) {
-
+	async function deleteHandler(post_id) {
 		let url = `http://localhost:3001/api/auth/postings/delete-post/${post_id}`;
 
 		await axios.delete(url, {
@@ -125,7 +124,7 @@ function Profile() {
 													</p>
 													<button 
 													className="btn btn-outline-danger"
-													onClick={() => deleteHandler(item.picture_id, item._id)}
+													onClick={() => deleteHandler(item._id)}
 													>
 													Delete
 													</button>
