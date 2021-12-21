@@ -38,6 +38,16 @@ function Home() {
 		}
 	}
 
+	async function addFavorite(post_id) {
+		let url = `http://localhost:3001/api/auth/postings/add-favorite/${post_id}`;
+
+		await axios.post(url, {
+			headers: {
+				authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+			},
+		});
+	}
+
 	return (
 		<>
 			{loading ? (
@@ -78,6 +88,12 @@ function Home() {
 													>
 														{item.city}, {item.state}, {item.zip}{' '}
 													</p>
+													<button 
+													className="btn btn-outline-warning"
+													onClick={() => addFavorite(item._id)}
+													>
+														Favorite
+													</button>
 												</div>
 												<div class="card-footer" style={{ maxHeight: '50px' }}>
 													$ {item.price}

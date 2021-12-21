@@ -69,6 +69,7 @@ function Signup() {
 				draggable: true,
 				progress: undefined,
 			});
+			navigate('/sign-in');
 		} catch (e) {
 			toast.error(e.response.data.error, {
 				position: 'top-center',

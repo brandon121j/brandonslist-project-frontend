@@ -82,12 +82,6 @@ const CreatePosting = () => {
 			fd.append('zip', zipCode);
 			fd.append('picture', img);
 
-			// for (var pair of formData.entries()) {
-			// 	console.log(pair[0]+ ', ' + pair[1]); 
-			// }
-
-			// console.log(formData)
-
 			let url = 'http://localhost:3001/api/auth/postings/create-listing';
 			// process.env.NODE_ENV === 'production'
 			// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
