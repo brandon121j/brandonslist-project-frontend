@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/AuthContext';
 function Profile() {
 	const { state: email, dispatch } = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
-	const [data, setData] = useState([]);
+	const [userData, setUserData] = useState([]);
 	const [postings, setPostings] = useState([]);
 
 	const { checkJwtToken } = CheckToken();
@@ -25,7 +25,7 @@ function Profile() {
 	useEffect(() => {
 		let payload = window.localStorage.getItem('jwtToken');
 		let decodedToken = jwtDecode(payload);
-		setData(decodedToken);
+		setUserData(decodedToken);
 		getUsersPosts();
 	}, []);
 
@@ -74,7 +74,7 @@ function Profile() {
 			<div class="d-flex justify-content-center">
 				<div>
 					<h1>
-						{data.firstName} {data.lastName}
+						{userData.firstName} {userData.lastName}
 					</h1>
 					<div className="d-flex justify-content-center">
 						<button className="btn btn-info" onClick={onClickHandler}>

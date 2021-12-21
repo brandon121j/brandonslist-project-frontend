@@ -6,6 +6,7 @@ import axios from 'axios';
 
 function Favorites() {
 	const [favorites, setFavorites] = useState([]);
+	const [userData, setUserData] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	async function getUsersFavorites() {
@@ -19,7 +20,7 @@ function Favorites() {
 				},
 			});
 
-			setPostings(posts.data.payload.usersPostings);
+			setFavorites(posts.data.payload.usersFavorites);
 
 			setLoading(false);
 		} catch (e) {
@@ -35,12 +36,18 @@ function Favorites() {
 		}
 	}
 
+	useEffect(() => {
+		let payload = window.localStorage.getItem('jwtToken');
+		let decodedToken = jwtDecode(payload);
+		setUserData(decodedToken);
+	}, []);
+
 	return (
 		<div>
 			<div class="d-flex justify-content-center">
 				<div>
 					<h1>
-						{data.firstName}'s Favorites
+						{userData.firstName}'s Favorites
 					</h1>
 				</div>
 			</div>
@@ -85,7 +92,7 @@ function Favorites() {
 													</p>
 													<button
 														className="btn btn-outline-danger"
-														onClick={() => deleteHandler(item._id)}
+	
 													>
 														Delete
 													</button>

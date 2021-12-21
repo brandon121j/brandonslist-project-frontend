@@ -39,6 +39,8 @@ function Home() {
 	}
 
 	async function addFavorite(post_id) {
+		try {
+			console.log(post_id)
 		let url = `http://localhost:3001/api/auth/postings/add-favorite/${post_id}`;
 
 		await axios.post(url, {
@@ -46,6 +48,9 @@ function Home() {
 				authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 			},
 		});
+		} catch(e) {
+			console.log(e.response);
+		}
 	}
 
 	return (
@@ -68,7 +73,7 @@ function Home() {
 										<div className="text-center rounded p-3">
 											<div
 												className="card border-secondary"
-												style={{ height: '350px', width: '302px' }}
+												style={{ height: '360px', width: '302px' }}
 											>
 												<img
 													className="card-img-top"
@@ -78,13 +83,13 @@ function Home() {
 												<div className="card-body">
 													<h4
 														className="card-title"
-														style={{ maxHeight: '50px' }}
+														style={{ maxHeight: '20px' }}
 													>
-														{item.title}
+														{item.listing}
 													</h4>
 													<p
 														className="card-text"
-														style={{ maxHeight: '25px' }}
+														style={{ maxHeight: '15px' }}
 													>
 														{item.city}, {item.state}, {item.zip}{' '}
 													</p>

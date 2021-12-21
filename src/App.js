@@ -11,6 +11,7 @@ import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Profile from './components/profile/Profile';
 import Home from './components/home/Home';
 import CreatePosting from './components/createPosting/CreatePosting';
+import Favorites from './components/favorites/Favorites';
 
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
@@ -61,6 +62,13 @@ function App() {
           element={
             <PrivateRoute>
                 <CreatePosting />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/favorites"
+          element={
+            <PrivateRoute>
+                <Favorites />
             </PrivateRoute>
           }
         />

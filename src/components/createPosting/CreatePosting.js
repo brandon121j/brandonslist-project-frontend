@@ -128,7 +128,7 @@ const CreatePosting = () => {
 	return (
 		<div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
-				<form class="card-body text-center justify-content-center" onSubmit={handleSubmit} encType="multipart/form-data">
+				<form class="card-body text-center justify-content-center" onSubmit={handleSubmit}  multipart="urlencoded">
 					<h2 className="m-3">Create Posting</h2>
 					<div className="form-group row justify-content-center m-3">
 						<div class="col-sm-12">
