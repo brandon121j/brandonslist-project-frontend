@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import CheckToken from '../../hooks/CheckToken';
+import { Navigate, useLocation, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -40,15 +39,31 @@ function Home() {
 
 	async function addFavorite(post_id) {
 		try {
-			console.log(post_id)
-		let url = `http://localhost:3001/api/auth/postings/add-favorite/${post_id}`;
+			let url = `http://localhost:3001/api/auth/postings/add-favorite/${post_id}`;
 
-		await axios.post(url, {
-			headers: {
-				authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
-			},
-		});
-		} catch(e) {
+
+			let payload = await axios.post(url, null, {
+				headers: {
+					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+				},
+			});
+			console.log(payload);
+		} catch (e) {
+			console.log(e.response);
+		}
+	}
+
+	async function postDetails(post_id) {
+		try {
+			let url = `http://localhost:3001/api/auth/postings/single-listing/${post_id}`;
+
+			let payload = await axios.post(url, {
+				headers: {
+					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+				},
+			});
+			console.log(payload);
+		} catch (e) {
 			console.log(e.response);
 		}
 	}
@@ -85,7 +100,13 @@ function Home() {
 														className="card-title"
 														style={{ maxHeight: '20px' }}
 													>
-														{item.listing}
+														<Link
+															to='/post-details'
+															state={{id: item._id}}	
+															className='text-decoration-none text-reset'				
+														>
+															{item.listing}
+														</Link>
 													</h4>
 													<p
 														className="card-text"
@@ -93,9 +114,9 @@ function Home() {
 													>
 														{item.city}, {item.state}, {item.zip}{' '}
 													</p>
-													<button 
-													className="btn btn-outline-warning"
-													onClick={() => addFavorite(item._id)}
+													<button
+														className="btn btn-outline-warning"
+														onClick={() => addFavorite(item._id)}
 													>
 														Favorite
 													</button>
