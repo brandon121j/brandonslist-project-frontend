@@ -19,7 +19,6 @@ function PostDetails() {
 
 			setPost(payload.data.payload);
 
-			console.log(payload.data.payload);
 		} catch (e) {
 			console.log(e);
 		}
@@ -39,6 +38,7 @@ function PostDetails() {
 
 					<p className="d-flex justify-content-center">{post.description}</p>
                     <p className="d-flex justify-content-center">{post.city}, {post.state}, {post.zip}</p>
+                    <p className="d-flex justify-content-center">$ {post.price}</p>
 				</div>
 			</div>
 		</>

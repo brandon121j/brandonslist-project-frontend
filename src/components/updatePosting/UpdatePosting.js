@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
-import CheckToken from '../../hooks/CheckToken';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import CategoryHooks from '../../hooks/CategoryHooks';
 import TitleHooks from '../../hooks/TitleHooks';
@@ -13,7 +11,6 @@ import PriceHooks from '../../hooks/PriceHooks';
 import DescriptionHooks from '../../hooks/DescriptionHooks';
 import LocationHooks from '../../hooks/LocationHooks';
 import ImageHooks from '../../hooks/ImageHooks';
-
 
 
 function UpdatePosting() {
@@ -54,7 +51,29 @@ function UpdatePosting() {
         zipCode
 	] = LocationHooks();
 
+    const [postData, setPostData] = useState([]);
+
+    const location = useLocation();
+	const { id } = location.state;
     let navigate = useNavigate();
+
+    useEffect(() => {
+        
+        postDetails()
+    }, [])
+
+    async function postDetails() {
+		try {
+			let url = `http://localhost:3001/api/auth/postings/single-listing/${id}`;
+
+			let payload = await axios.get(url);
+
+			setPostData(payload.data.payload);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+    
 
     async function handleSubmit(e) {
 		e.preventDefault();
@@ -72,22 +91,20 @@ function UpdatePosting() {
 				navigate('/sign-in');
 			} else {
 
-			let url = 'http://localhost:3001/api/auth/postings/create-listing';
-			// process.env.NODE_ENV === 'production'
-			// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
-			// 	: 'http://localhost:3001/api/users/create-user';
+			let fd = new FormData();
 
-			let token = window.localStorage.getItem("jwtToken");
+			fd.append('category', category);
+			fd.append('listing', title);
+			fd.append('price', price);
+			fd.append('description', desc);
+			fd.append('city', city);
+			fd.append('state', state);
+			fd.append('zip', zipCode);
+			fd.append('picture', img);
 
-			let payload = await axios.post(url, {
-                category: e.data.category,
-				city: e.data.city,
-				state: e.data.state,
-				zip: e.data.zip,
-				listing: e.data.listing,
-				price: e.data.price,
-				description: e.data.description,
-            },
+			let url = `http://localhost:3001/api/auth/postings/update-post/${id}`;
+
+			let payload = await axios.put(url, fd,
 			{
 				headers : {
 					"Authorization" : `Bearer ${localStorage.getItem('jwtToken')}`,
@@ -95,7 +112,7 @@ function UpdatePosting() {
 				}
 			});
 
-			toast.success('Posting created!', {
+			toast.success('Posting updated!', {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -104,7 +121,7 @@ function UpdatePosting() {
 				draggable: true,
 				progress: undefined,
 			});
-			navigate('/');
+			navigate('/profile');
 		}
 		} catch (e) {
 			toast.error(e.response, {
@@ -120,15 +137,11 @@ function UpdatePosting() {
 		}
 	}
 
-    function getPostData() {
-        
-    }
-
     return (
         <div className="d-flex justify-content-center text-center rounded m-5">
 			<div className="card w-25">
 				<form class="card-body text-center justify-content-center" onSubmit={handleSubmit}  multipart="urlencoded">
-					<h2 className="m-3">Create Posting</h2>
+					<h2 className="m-3">Update Posting</h2>
 					<div className="form-group row justify-content-center m-3">
 						<div class="col-sm-12">
 							<select
@@ -138,7 +151,7 @@ function UpdatePosting() {
 								id={category}
 								name="category"
 								className={validator}
-                                placeholder={}
+                                placeholder={postData.category}
 							>
 								<option selected>Select a Category</option>
 								<option value="Jobs">Jobs</option>
@@ -159,7 +172,7 @@ function UpdatePosting() {
 							<input
 								type="text"
 								class="form-control"
-								placeholder="Posting Title"
+								placeholder={postData.listing}
 								onBlur={setTitleOnBlur}
 								onChange={handleTitleChange}
 								className={titleClassName}
@@ -181,7 +194,7 @@ function UpdatePosting() {
 								min="0"
 								max="999999"
 								class="form-control"
-								placeholder="Posting Price"
+								placeholder={postData.price}
 								onChange={handlePriceChange}
 								onBlur={setPriceOnBlur}
 								className={priceClass}
@@ -201,7 +214,7 @@ function UpdatePosting() {
 							<textarea
 								type="text"
 								className="form-control"
-								placeholder="Posting Description"
+								placeholder={postData.description}
 								onChange={handleDescChange}
 								onBlur={setDescOnBlur}
 								className={descClass}
@@ -225,7 +238,7 @@ function UpdatePosting() {
                                     onChange={handleCityChange}
                                     id={city}
                                     onBlur={setCityBlur}
-									placeholder="City"
+									placeholder={postData.city}
 									required
 								/>
 								{cityError && (
@@ -266,7 +279,7 @@ function UpdatePosting() {
 								<input
 									type="text"
 									className={zipClass}
-									placeholder="Zip"
+									placeholder={postData.zip}
                                     onChange={handleZipChange}
                                     onBlur={setZipBlur}
                                     id={zipCode}
@@ -281,7 +294,6 @@ function UpdatePosting() {
 						</div>
 					</div>
 					<div className="justify-content-center m-3 custom-file">
-						{/* <label class="custom-file-label mr-3" for="customFile">Choose file</label> */}
 						<input
 							type="file"
 							multiple

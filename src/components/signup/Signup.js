@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
-import jwtDecode from "jwt-decode";
 
 import CheckToken from '../../hooks/CheckToken';
 import FirstNameHooks from '../../hooks/FirstNameHooks';
@@ -49,9 +48,6 @@ function Signup() {
 
 		try {
 			let url = "http://localhost:3001/api/auth/users/create-user";
-				// process.env.NODE_ENV === 'production'
-				// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
-				// 	: 'http://localhost:3001/api/users/create-user';
 
 			await axios.post(url, {
 				firstName,

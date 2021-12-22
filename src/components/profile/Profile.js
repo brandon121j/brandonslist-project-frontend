@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -42,7 +42,6 @@ function Profile() {
 
 			setPostings(posts.data.payload.usersPostings);
 
-
 			setLoading(false);
 		} catch (e) {
 			toast.error(e.response, {
@@ -67,6 +66,20 @@ function Profile() {
 		});
 
 		getUsersPosts();
+	}
+
+	async function postDetails(post_id) {
+		try {
+			let url = `http://localhost:3001/api/auth/postings/single-listing/${post_id}`;
+
+			let payload = await axios.post(url, {
+				headers: {
+					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+				},
+			});
+		} catch (e) {
+			console.log(e.response);
+		}
 	}
 
 	return (
@@ -95,14 +108,13 @@ function Profile() {
 				<div class="container">
 					<div className="row" style={{ margin: 'auto' }}>
 						{postings.map((item) => {
-							console.log(item)
 							return (
 								<>
 									<div class="col-3">
 										<div className="text-center rounded p-3">
 											<div
 												className="card border-secondary"
-												style={{ height: '350px', width: '302px' }}
+												style={{ height: '360px', width: '302px' }}
 											>
 												<img
 													className="card-img-top"
@@ -112,22 +124,40 @@ function Profile() {
 												<div className="card-body">
 													<h4
 														className="card-title"
-														style={{ maxHeight: '50px' }}
+														style={{ maxHeight: '20px' }}
 													>
-														{item.title}
+														<Link
+															to='/post-details'
+															state={{id: item._id}}	
+															className='text-decoration-none text-reset'				
+														>
+															{item.listing}
+														</Link>
 													</h4>
 													<p
 														className="card-text"
-														style={{ maxHeight: '25px' }}
+														style={{ maxHeight: '15px' }}
 													>
 														{item.city}, {item.state}, {item.zip}{' '}
 													</p>
-													<button 
-													className="btn btn-outline-danger"
-													onClick={() => deleteHandler(item._id)}
+													
+													<Link
+														to="/update"
+														state={{ id: item._id }}
+														className="text-decoration-none text-reset"
 													>
-													Delete
+														<button className="btn btn-outline-warning">
+															Edit
+														</button>
+													</Link>
+											
+													<button
+														className="btn btn-outline-danger ml-5"
+														onClick={() => deleteHandler(item._id)}
+													>
+														Delete
 													</button>
+													
 												</div>
 												<div class="card-footer" style={{ maxHeight: '50px' }}>
 													$ {item.price}

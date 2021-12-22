@@ -34,15 +34,12 @@ function Signin({ setUser }) {
 		e.preventDefault();
 		try {
 			let url = 'http://localhost:3001/api/auth/users/login';
-			// process.env.NODE_ENV === 'production'
-			// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
-			// 	: 'http://localhost:3001/api/users/create-user';
 
 			let payload = await axios.post(url, {
 				email,
 				password,
 			});
-			console.log(payload.data);
+			
 			window.localStorage.setItem("jwtToken", payload.data.token);
 
 			let decodedToken = jwtDecode(payload.data.token);

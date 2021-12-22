@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
-import CheckToken from '../../hooks/CheckToken';
+import { useNavigate } from 'react-router-dom';
 
 import CategoryHooks from '../../hooks/CategoryHooks';
 import TitleHooks from '../../hooks/TitleHooks';
@@ -82,9 +80,6 @@ const CreatePosting = () => {
 			fd.append('picture', img);
 
 			let url = 'http://localhost:3001/api/auth/postings/create-listing';
-			// process.env.NODE_ENV === 'production'
-			// 	? 'https://team-2-movie-backend.herokuapp.com/api/users/create-user'
-			// 	: 'http://localhost:3001/api/users/create-user';
 
 			let token = window.localStorage.getItem("jwtToken");
 
@@ -96,7 +91,6 @@ const CreatePosting = () => {
 					"Accept": "application/json"
 				}
 			});
-			console.log(payload);
 
 			toast.success('Posting created!', {
 				position: 'top-center',
@@ -280,7 +274,6 @@ const CreatePosting = () => {
 						</div>
 					</div>
 					<div className="justify-content-center m-3 custom-file">
-						{/* <label class="custom-file-label mr-3" for="customFile">Choose file</label> */}
 						<input
 							type="file"
 							multiple

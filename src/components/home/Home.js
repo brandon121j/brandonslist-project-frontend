@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -22,7 +22,6 @@ function Home() {
 
 			setLoading(false);
 
-			console.log(posts);
 		} catch (e) {
 			console.log(e.response);
 			toast.error(e.response, {
@@ -47,7 +46,6 @@ function Home() {
 					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 				},
 			});
-			console.log(payload);
 		} catch (e) {
 			console.log(e.response);
 		}
@@ -62,7 +60,6 @@ function Home() {
 					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 				},
 			});
-			console.log(payload);
 		} catch (e) {
 			console.log(e.response);
 		}
@@ -135,16 +132,6 @@ function Home() {
 			)}
 		</>
 	);
-
-	// category,
-	//         city,
-	//         state,
-	//         zip,
-	//         picture,
-	//         listing,
-	//         price,
-	//         description,
-	//         userID
 }
 
 export default Home;

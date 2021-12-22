@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -12,7 +11,7 @@ function Favorites() {
 	async function getUsersFavorites() {
 		try {
 			setLoading(true);
-			let url = 'http://localhost:3001/api/auth/postings/get-users-listings';
+			let url = 'http://localhost:3001/api/auth/postings/users-favorites';
 
 			let posts = await axios.get(url, {
 				headers: {
@@ -36,10 +35,27 @@ function Favorites() {
 		}
 	}
 
+	async function removeFavorite(post_id) {
+		try {
+			let url = `http://localhost:3001/api/auth/postings//remove-favorite/${post_id}`;
+
+
+			let payload = await axios.delete(url, {
+				headers: {
+					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+				},
+			});
+			getUsersFavorites()
+		} catch (e) {
+			console.log(e.response);
+		}
+	}
+
 	useEffect(() => {
 		let payload = window.localStorage.getItem('jwtToken');
 		let decodedToken = jwtDecode(payload);
 		setUserData(decodedToken);
+		getUsersFavorites()
 	}, []);
 
 	return (
@@ -63,7 +79,6 @@ function Favorites() {
 				<div class="container">
 					<div className="row" style={{ margin: 'auto' }}>
 						{favorites.map((item) => {
-							console.log(item);
 							return (
 								<>
 									<div class="col-3">
@@ -91,10 +106,10 @@ function Favorites() {
 														{item.city}, {item.state}, {item.zip}{' '}
 													</p>
 													<button
-														className="btn btn-outline-danger"
-	
+														className="btn btn-outline-warning"
+														onClick={() => removeFavorite(item._id)}
 													>
-														Delete
+														Remove Favorite
 													</button>
 												</div>
 												<div class="card-footer" style={{ maxHeight: '50px' }}>
