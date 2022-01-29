@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { isAlpha } from 'validator';
 
 function FirstNameHooks() {
-	const [first, setFirst] = useState('');
-	const [err, setErr] = useState('');
+        const [first, setFirst] = useState('');
+        const [err, setErr] = useState('');
     const [className, setClassName] = useState('form-control');
     const [onBlur, setOnBlur] = useState(false);
 
