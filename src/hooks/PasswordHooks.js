@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import zxcvbn from 'zxcvbn';
 
 function PasswordHooks() {
-	const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
-	const [err, setErr] = useState('');
+    const [err, setErr] = useState('');
     const [confirmErr, setConfirmErr] = useState('');
     const [confirmBlur, setConfirmBlur] = useState(false);
     const [className, setClassName] = useState('form-control');
