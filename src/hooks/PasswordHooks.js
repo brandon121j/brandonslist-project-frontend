@@ -9,7 +9,7 @@ function PasswordHooks() {
     const [confirmBlur, setConfirmBlur] = useState(false);
     const [className, setClassName] = useState('form-control');
     const [confirmClass, setConfirmClass] = useState('form-control')
-	const [onBlur, setOnBlur] = useState(false);
+    const [onBlur, setOnBlur] = useState(false);
     const passwordTester = zxcvbn(password);
 
     useEffect(() => {
