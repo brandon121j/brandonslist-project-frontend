@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 function ImageHooks() {
-	const [img, setImg] = useState('');
+    const [img, setImg] = useState('');
     const [imgClass, setImgClass] = useState('form-control')
     const [imgBlur, setImgBlur] = useState(false);
 
