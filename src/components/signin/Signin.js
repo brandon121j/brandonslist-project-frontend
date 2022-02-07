@@ -106,7 +106,7 @@ function Signin({ setUser }) {
 					<div class="m-3">
 						<label class="m-1">Password</label>
 						<input
-							type="text"
+							type="password"
 							className="form-control"
 							id={password}
 							placeholder="Password"
