@@ -2,7 +2,7 @@ import { useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import jwtDecode from 'jwt-decode';
-import axios from 'axios';
+import axios from '../util/apiAxios';
 
 
 import { AuthContext } from '../../context/AuthContext';
@@ -35,7 +35,7 @@ function Signin({ setUser }) {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			let url = process.env.REACT_APP_AXIOS === 'development' ? 'http://localhost:4001/api/auth/users/login' : '/api';
+			let url = '/auth/users/login';
 
 			let payload = await axios.post(url, {
 				email,
