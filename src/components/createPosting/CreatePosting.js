@@ -58,7 +58,7 @@ const CreatePosting = () => {
 			if (localStorage.getItem('jwtToken') === null) {
 				toast.error('Please Login', {
 					position: 'top-center',
-					autoClose: 5000,
+					autoClose: 2000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -89,7 +89,7 @@ const CreatePosting = () => {
 			.then(() => (
 			toast.success('Posting created!', {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
@@ -103,7 +103,7 @@ const CreatePosting = () => {
 		} catch (e) {
 			toast.error(e.response, {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import CheckToken from '../../hooks/CheckToken';
 import SigninHooks from '../../hooks/SigninHooks';
-import ApiAxios from '../util/apiAxios';
+
 
 function Signin({ setUser }) {
 	const [
@@ -35,7 +35,7 @@ function Signin({ setUser }) {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			let url = 'http://localhost:4001/api/auth/users/login';
+			let url = process.env.REACT_APP_AXIOS === 'development' ? 'http://localhost:4001/api/auth/users/login' : '/api';
 
 			let payload = await axios.post(url, {
 				email,
@@ -55,7 +55,7 @@ function Signin({ setUser }) {
 
 			toast.success('Login successful!', {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
@@ -66,7 +66,7 @@ function Signin({ setUser }) {
 		} catch (e) {
 			toast.error(e.response.data.error, {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,

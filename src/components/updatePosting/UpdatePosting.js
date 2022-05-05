@@ -77,7 +77,7 @@ function UpdatePosting() {
 			if (localStorage.getItem('jwtToken') === null) {
 				toast.error('Please Login', {
 					position: 'top-center',
-					autoClose: 5000,
+					autoClose: 3000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -108,7 +108,7 @@ function UpdatePosting() {
 			.then(() => (
 			toast.success('Posting updated!', {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,

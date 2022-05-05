@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+
 
 import CheckToken from '../../hooks/CheckToken';
 import { AuthContext } from '../../context/AuthContext';

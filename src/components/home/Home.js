@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import ApiAxios from '../util/apiAxios';
 
 function Home() {
@@ -24,7 +23,7 @@ function Home() {
 			console.log(e.response);
 			toast.error(e.response, {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
@@ -54,7 +53,7 @@ function Home() {
 		if (type == 'success') {
 		toast.success((message), {
 			position: 'top-center',
-			autoClose: 5000,
+			autoClose: 2000,
 			hideProgressBar: false,
 			closeOnClick: true,
 			pauseOnHover: true,
@@ -64,7 +63,7 @@ function Home() {
 		} else if (type == 'warning') {
 			toast.warning((message), {
 				position: 'top-center',
-				autoClose: 5000,
+				autoClose: 2000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
