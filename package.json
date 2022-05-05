@@ -27,8 +27,8 @@
     "zxcvbn": "^4.4.2"
   },
   "scripts": {
-    "start": "REACT_APP_AXIOS=/api/ react-scripts start",
-    "dev": "REACT_APP_AXIOS='development' PORT=4000 react-scripts start",
+    "start": "REACT_APP_AXIOS='production' PORT=4000 react-scripts start",
+    "dev": "REACT_APP_AXIOS='development' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
