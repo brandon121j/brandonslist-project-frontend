@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ import PriceHooks from '../../hooks/PriceHooks';
 import DescriptionHooks from '../../hooks/DescriptionHooks';
 import LocationHooks from '../../hooks/LocationHooks';
 import ImageHooks from '../../hooks/ImageHooks';
+import ApiAxios from '../util/apiAxios';
 
 const CreatePosting = () => {
 	const [
@@ -79,19 +79,14 @@ const CreatePosting = () => {
 			fd.append('zip', zipCode);
 			fd.append('picture', img);
 
-			let url = 'http://localhost:3001/api/auth/postings/create-listing';
 
-			let token = window.localStorage.getItem("jwtToken");
-
-
-			let payload = await axios.post(url, fd,
-			{
+			ApiAxios.post('/auth/postings/create-listing', fd, {
 				headers : {
 					"Authorization" : `Bearer ${localStorage.getItem('jwtToken')}`,
 					"Accept": "application/json"
 				}
-			});
-
+			})
+			.then(() => (
 			toast.success('Posting created!', {
 				position: 'top-center',
 				autoClose: 5000,
@@ -100,8 +95,10 @@ const CreatePosting = () => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			});
-			navigate('/');
+			})
+			))
+			.then(() => navigate('/'))
+			
 		}
 		} catch (e) {
 			toast.error(e.response, {
@@ -193,7 +190,6 @@ const CreatePosting = () => {
 						<div class="col-sm-8">
 							<textarea
 								type="text"
-								className="form-control"
 								placeholder="Posting Description"
 								onChange={handleDescChange}
 								onBlur={setDescOnBlur}

@@ -14,7 +14,7 @@ function reducer(state, action) {
                     email: action.email,
                     isAuth: true,
                     firstName: action.firstName,
-                    lastName: action.lastName
+                    lastName: action.lastName,
                 }
             };
         case "LOGOUT":

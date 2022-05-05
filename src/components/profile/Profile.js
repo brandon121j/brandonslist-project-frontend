@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import CheckToken from '../../hooks/CheckToken';
 import { AuthContext } from '../../context/AuthContext';
+import ApiAxios from '../util/apiAxios';
 
 function Profile() {
 	const { state: email, dispatch } = useContext(AuthContext);
@@ -32,17 +33,15 @@ function Profile() {
 	async function getUsersPosts() {
 		try {
 			setLoading(true);
-			let url = 'http://localhost:3001/api/auth/postings/get-users-listings';
 
-			let posts = await axios.get(url, {
+			ApiAxios.get('/auth/postings/get-users-listings', {
 				headers: {
 					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 				},
-			});
+			})
+			.then((result) => setPostings(result.data.payload.usersPostings))
+			.then(() => setLoading(false))
 
-			setPostings(posts.data.payload.usersPostings);
-
-			setLoading(false);
 		} catch (e) {
 			toast.error(e.response, {
 				position: 'top-center',
@@ -57,26 +56,22 @@ function Profile() {
 	}
 
 	async function deleteHandler(post_id) {
-		let url = `http://localhost:3001/api/auth/postings/delete-post/${post_id}`;
 
-		await axios.delete(url, {
+		ApiAxios.delete(`/auth/postings/delete-post/${post_id}`, {
 			headers: {
 				authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 			},
-		});
+		}).then(() => getUsersPosts())
 
-		getUsersPosts();
 	}
 
 	async function postDetails(post_id) {
 		try {
-			let url = `http://localhost:3001/api/auth/postings/single-listing/${post_id}`;
-
-			let payload = await axios.post(url, {
+			ApiAxios.post(`/auth/postings/single-listing/${post_id}`, {
 				headers: {
 					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 				},
-			});
+			})
 		} catch (e) {
 			console.log(e.response);
 		}
@@ -127,9 +122,9 @@ function Profile() {
 														style={{ maxHeight: '20px' }}
 													>
 														<Link
-															to='/post-details'
-															state={{id: item._id}}	
-															className='text-decoration-none text-reset'				
+															to="/post-details"
+															state={{ id: item._id }}
+															className="text-decoration-none text-reset"
 														>
 															{item.listing}
 														</Link>
@@ -140,7 +135,7 @@ function Profile() {
 													>
 														{item.city}, {item.state}, {item.zip}{' '}
 													</p>
-													
+
 													<Link
 														to="/update"
 														state={{ id: item._id }}
@@ -150,14 +145,13 @@ function Profile() {
 															Edit
 														</button>
 													</Link>
-											
+
 													<button
 														className="btn btn-outline-danger ml-5"
 														onClick={() => deleteHandler(item._id)}
 													>
 														Delete
 													</button>
-													
 												</div>
 												<div class="card-footer" style={{ maxHeight: '50px' }}>
 													$ {item.price}

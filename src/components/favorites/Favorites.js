@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import ApiAxios from '../util/apiAxios';
 
 function Favorites() {
 	const [favorites, setFavorites] = useState([]);
@@ -11,17 +11,13 @@ function Favorites() {
 	async function getUsersFavorites() {
 		try {
 			setLoading(true);
-			let url = 'http://localhost:3001/api/auth/postings/users-favorites';
 
-			let posts = await axios.get(url, {
-				headers: {
-					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
-				},
-			});
+			ApiAxios.get('/auth/postings/users-favorites', {headers: {
+				authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+			}})
+			.then((result) => setFavorites(result.data.payload.usersFavorites))
+			.then(() => setLoading(false))
 
-			setFavorites(posts.data.payload.usersFavorites);
-
-			setLoading(false);
 		} catch (e) {
 			toast.error(e.response, {
 				position: 'top-center',
@@ -37,15 +33,13 @@ function Favorites() {
 
 	async function removeFavorite(post_id) {
 		try {
-			let url = `http://localhost:3001/api/auth/postings//remove-favorite/${post_id}`;
 
-
-			let payload = await axios.delete(url, {
+			ApiAxios.delete(`/auth/postings/remove-favorite/${post_id}`, {
 				headers: {
 					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 				},
-			});
-			getUsersFavorites()
+			}).then(() => getUsersFavorites())
+
 		} catch (e) {
 			console.log(e.response);
 		}
@@ -67,12 +61,10 @@ function Favorites() {
 					</h1>
 				</div>
 			</div>
-			{loading ? (
+			{favorites.length === 0 ? (
 				<div className="d-flex justify-content-center m-5">
 					<div className="d-flex justify-content-center m-5">
-						<div class="spinner-border text-primary" role="status">
-							<span class="sr-only"></span>
-						</div>
+						<h1>No favorited items :(</h1>
 					</div>
 				</div>
 			) : (
@@ -90,6 +82,7 @@ function Favorites() {
 												<img
 													className="card-img-top"
 													src={item.picture}
+													alt='item'
 													style={{ height: '190px', width: '300px' }}
 												/>
 												<div className="card-body">

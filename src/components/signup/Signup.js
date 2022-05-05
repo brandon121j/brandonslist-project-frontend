@@ -9,6 +9,7 @@ import LastNameHooks from '../../hooks/LastNameHooks';
 import PasswordHooks from '../../hooks/PasswordHooks';
 import EmailHooks from '../../hooks/EmailHooks';
 import PasswordStrength from '../passwordStrength/PasswordStrength';
+import ApiAxios from '../util/apiAxios';
 import '../../App.css';
 
 function Signup() {
@@ -47,14 +48,13 @@ function Signup() {
 		e.preventDefault();
 
 		try {
-			let url = "http://localhost:3001/api/auth/users/create-user";
 
-			await axios.post(url, {
+			ApiAxios.post('/auth/users/create-user', {
 				firstName,
 				lastName,
 				email,
 				password,
-			});
+			}).then(() => (
 
 			toast.success('Account created!', {
 				position: 'top-center',
@@ -64,10 +64,11 @@ function Signup() {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			});
-			navigate('/sign-in');
+			})
+			))
+			.then(() => navigate('/sign-in'))
 		} catch (e) {
-			toast.error(e.response.data.error, {
+			toast.error("Error", {
 				position: 'top-center',
 				autoClose: 5000,
 				hideProgressBar: false,
@@ -76,7 +77,7 @@ function Signup() {
 				draggable: true,
 				progress: undefined,
 			});
-			console.log(e.response.data)
+			console.log(e)
 		}
 	}
 

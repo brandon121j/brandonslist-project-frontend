@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import ApiAxios from '../util/apiAxios';
 
 function Home() {
 	const [postings, setPostings] = useState([]);
 	const [loading, setLoading] = useState(false);
+	let favoriteStatus;
 
 	useEffect(() => {
 		getPosts();
@@ -14,13 +16,9 @@ function Home() {
 	async function getPosts() {
 		try {
 			setLoading(true);
-			let url = 'http://localhost:3001/api/auth/postings/get-all-listings';
-
-			let posts = await axios.get(url);
-
-			setPostings(posts.data.allPostings);
-
-			setLoading(false);
+			ApiAxios.get('/auth/postings/get-all-listings')
+				.then((result) => setPostings(result.data.allPostings))
+				.then(() => setLoading(false))
 
 		} catch (e) {
 			console.log(e.response);
@@ -35,36 +33,46 @@ function Home() {
 			});
 		}
 	}
-
+	
 	async function addFavorite(post_id) {
+		
 		try {
-			let url = `http://localhost:3001/api/auth/postings/add-favorite/${post_id}`;
-
-
-			let payload = await axios.post(url, null, {
+			ApiAxios.post(`/auth/postings/add-favorite/${post_id}`, null, {
 				headers: {
 					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
 				},
-			});
+			})
+			.then((result) => favoriteStatus = result.data.message)
+			.then(() => {if(favoriteStatus == "Listing already in favorites") { toaster('warning', favoriteStatus) } else { toaster('success', favoriteStatus)}})
+			
 		} catch (e) {
 			console.log(e.response);
 		}
 	}
 
-	async function postDetails(post_id) {
-		try {
-			let url = `http://localhost:3001/api/auth/postings/single-listing/${post_id}`;
-
-			let payload = await axios.post(url, {
-				headers: {
-					authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
-				},
-			});
-		} catch (e) {
-			console.log(e.response);
+	function toaster(type, message) {
+		if (type == 'success') {
+		toast.success((message), {
+			position: 'top-center',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+	})
+		} else if (type == 'warning') {
+			toast.warning((message), {
+				position: 'top-center',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+		})
 		}
 	}
-
 	return (
 		<>
 			{loading ? (
@@ -91,6 +99,7 @@ function Home() {
 													className="card-img-top"
 													src={item.picture}
 													style={{ height: '190px', width: '300px' }}
+													alt={item.listing}
 												/>
 												<div className="card-body">
 													<h4

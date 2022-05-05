@@ -4,9 +4,11 @@ import { toast } from 'react-toastify';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 
+
 import { AuthContext } from '../../context/AuthContext';
 import CheckToken from '../../hooks/CheckToken';
 import SigninHooks from '../../hooks/SigninHooks';
+import ApiAxios from '../util/apiAxios';
 
 function Signin({ setUser }) {
 	const [
@@ -33,7 +35,7 @@ function Signin({ setUser }) {
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
-			let url = 'http://localhost:3001/api/auth/users/login';
+			let url = 'http://localhost:4001/api/auth/users/login';
 
 			let payload = await axios.post(url, {
 				email,
@@ -84,7 +86,6 @@ function Signin({ setUser }) {
 						<label class="m-1">Email</label>
 						<input
 							type="text"
-							className="form-control"
 							id={email}
 							placeholder="email@example.com"
 							name="email"
@@ -107,7 +108,6 @@ function Signin({ setUser }) {
 						<label class="m-1">Password</label>
 						<input
 							type="password"
-							className="form-control"
 							id={password}
 							placeholder="Password"
 							name="password"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import ApiAxios from '../util/apiAxios';
 
 function PostDetails() {
 	const [post, setPost] = useState([]);
@@ -13,12 +13,8 @@ function PostDetails() {
 
 	async function postDetails() {
 		try {
-			let url = `http://localhost:3001/api/auth/postings/single-listing/${id}`;
-
-			let payload = await axios.get(url);
-
-			setPost(payload.data.payload);
-
+			ApiAxios.get(`/auth/postings/single-listing/${id}`)
+				.then((result) => setPost(result.data.payload))
 		} catch (e) {
 			console.log(e);
 		}
@@ -30,7 +26,7 @@ function PostDetails() {
 				<div>
 					<h3 className="d-flex justify-content-center">{post.listing}</h3>
 					<div>
-						<img src={post.picture} />
+						<img src={post.picture} alt='posting'/>
 					</div>
 					<h4 className="d-flex justify-content-center">
 						{post.category}

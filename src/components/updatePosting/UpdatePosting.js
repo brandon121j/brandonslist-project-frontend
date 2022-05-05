@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { usStates } from '../../data/States';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ import PriceHooks from '../../hooks/PriceHooks';
 import DescriptionHooks from '../../hooks/DescriptionHooks';
 import LocationHooks from '../../hooks/LocationHooks';
 import ImageHooks from '../../hooks/ImageHooks';
+import ApiAxios from '../util/apiAxios';
 
 
 function UpdatePosting() {
@@ -58,17 +58,13 @@ function UpdatePosting() {
     let navigate = useNavigate();
 
     useEffect(() => {
-        
         postDetails()
     }, [])
 
     async function postDetails() {
 		try {
-			let url = `http://localhost:3001/api/auth/postings/single-listing/${id}`;
-
-			let payload = await axios.get(url);
-
-			setPostData(payload.data.payload);
+			ApiAxios.get(`/auth/postings/single-listing/${id}`)
+				.then((result) => setPostData(result.data.payload))			
 		} catch (e) {
 			console.log(e);
 		}
@@ -102,16 +98,14 @@ function UpdatePosting() {
 			fd.append('zip', zipCode);
 			fd.append('picture', img);
 
-			let url = `http://localhost:3001/api/auth/postings/update-post/${id}`;
 
-			let payload = await axios.put(url, fd,
-			{
+			ApiAxios.put(`/auth/postings/update-post/${id}`, fd, {
 				headers : {
 					"Authorization" : `Bearer ${localStorage.getItem('jwtToken')}`,
 					"Accept": "application/json"
 				}
-			});
-
+			})
+			.then(() => (
 			toast.success('Posting updated!', {
 				position: 'top-center',
 				autoClose: 5000,
@@ -120,8 +114,10 @@ function UpdatePosting() {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-			});
-			navigate('/profile');
+			})
+			))
+			.then(() => navigate('/profile'))
+			
 		}
 		} catch (e) {
 			toast.error(e.response, {
@@ -213,7 +209,6 @@ function UpdatePosting() {
 						<div class="col-sm-8">
 							<textarea
 								type="text"
-								className="form-control"
 								placeholder={postData.description}
 								onChange={handleDescChange}
 								onBlur={setDescOnBlur}
