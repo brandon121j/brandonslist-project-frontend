@@ -1,4 +1,4 @@
-<h1>Brandon's Book</h1>
+<h1>Brandon's List</h1>
 <p>My project is a craiglist inspired classified advertisements website. some features that my project has are backend and frotend validators, login and signup functionality, the ability to create a posting, and the ability to add a posting to your favorites list. I created this application using React, Node.js, MongoDB, and Express. The biggest hardship I had to overcome was utilizing cloudinary for the picture upload portion of creating a posting.</p>
 
 
